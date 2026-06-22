@@ -1,0 +1,126 @@
+/* ==========================================
+   Roadmap & Intro (Tahap 0: 導入ページ専用設定)
+   ========================================== */
+.roadmap-container {
+  max-width: 900px;
+  margin: 20px auto 40px auto;
+}
+
+.roadmap-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #0F172A;
+  border-bottom: 2px dashed #CBD5E1;
+  padding-bottom: 12px;
+  margin-bottom: 32px;
+  text-align: left;
+}
+
+.roadmap-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.roadmap-column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* 共通の親ボックス（単体のステップ用） */
+.step-box {
+  display: block;
+  text-decoration: none;
+  color: #0F172A !important;
+  padding: 18px 12px;
+  text-align: center;
+  border-radius: 12px;
+  font-weight: 700;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.step-box:hover, .step-box:active {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  opacity: 0.95;
+}
+
+.step-box span {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #334155;
+  margin-top: 6px;
+  line-height: 1.4;
+}
+
+/* 📦 追加：複数の枝分かれステップをまとめる枠 */
+.step-group {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+/* 📦 追加：グループ内のメインタイトル（大きなボタン風） */
+.step-group-title {
+  padding: 12px 8px;
+  text-align: center;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #0F172A;
+}
+
+/* 📦 追加：グループ中の細かいリンク（2-1, 4-1など） */
+.step-sub-box {
+  display: block;
+  text-decoration: none;
+  color: #475569 !important;
+  background-color: #F8FAFC;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 1px solid #E2E8F0;
+  transition: all 0.15s ease;
+}
+
+.step-sub-box:hover {
+  background-color: #F1F5F9;
+  color: #0F172A !important;
+  border-color: #CBD5E1;
+  padding-left: 16px; /* ホバー時に少し右に動く親切エフェクト */
+}
+
+.step-sub-box i {
+  color: #94A3B8;
+  margin-right: 4px;
+}
+
+/* 配色定義 */
+.color-orange { background-color: #F3B122; }
+.color-yellow { background-color: #EAF825; }
+
+.roadmap-note {
+  margin-top: 32px;
+  font-size: 0.875rem;
+  color: #475569;
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .roadmap-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}

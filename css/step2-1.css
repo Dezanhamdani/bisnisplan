@@ -1,0 +1,67 @@
+/* ==========================================
+   1. Form Control Extensions (テキストエリア設定)
+   ========================================== */
+.input-group textarea {
+  width: 100%;
+  padding: 14px 16px; 
+  font-size: 0.95rem;  
+  color: #0F172A;      
+  background-color: #F8FAFC; 
+  border: 1px solid #CBD5E1; 
+  border-radius: 10px;       /* 角丸を10pxに統一 */
+  outline: none;
+  font-family: inherit;
+  line-height: 1.6;
+  resize: vertical; 
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+/* フォーカス時の青枠アニメーション（step1と完全統一） */
+.input-group textarea:focus {
+  background-color: #FFFFFF;
+  border-color: #3B82F6; 
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15); 
+}
+
+/* プレースホルダーの色 */
+.input-group textarea::placeholder {
+  color: #94A3B8;
+}
+
+/* 縦並びの時のラベル余白微調整 */
+.input-group label {
+  margin-top: 14px;  
+  margin-bottom: 4px;
+  display: flex;     
+  align-items: center;
+  gap: 8px;
+}
+
+.input-group label:first-of-type {
+  margin-top: 0;     
+}
+
+/* ==========================================
+   2. Dynamic Asset Rows (アセット入力エリア専用)
+   ========================================== */
+#assets-container {
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+/* ==========================================
+   3. Asset & Funding Width Controls (ステップ1に合わせた横幅調整)
+   ========================================== */
+#assets-container,
+#sumber-dana-container,
+.dynamic-finance-group .list-container {
+  width: 100%;
+  max-width: 600px; /* ステップ1の入力幅と完全に一致 */
+}
+
+.dynamic-finance-group .button-row,
+.dynamic-finance-group .total-row {
+  width: 100%;
+  max-width: 600px;
+}

@@ -1,0 +1,168 @@
+/* ==========================================
+   1. Base Block Layout (専用ブロックレイアウト)
+   ========================================= */
+.finance-block {
+  background-color: #FFFFFF;
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.05);
+  border: 1px solid #E2E8F0; 
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; 
+  width: 100%;
+}
+
+.finance-block h3 {
+  font-size: 1.15rem;
+  color: #1E293B;
+  margin-bottom: 8px;
+  border-bottom: 1px solid #E2E8F0;
+  padding-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%; 
+  text-align: left;
+}
+
+.field-desc {
+  font-size: 0.88rem;
+  color: #64748B;
+  margin-bottom: 16px;
+  line-height: 1.4;
+  text-align: left;
+  width: 100%;
+}
+
+/* ==========================================
+   2. Input Group Extend (専用コンテナ)
+   ========================================== */
+.list-container {
+  width: 100%;
+}
+
+/* ==========================================
+   3. Row Containers (動的な入力行の余白・通貨単位設定)
+   ========================================== */
+.dynamic-row {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  justify-content: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+  width: 100%;
+  max-width: 600px; 
+}
+
+/* インドネシア・ルピア(Rp)などの単位テキスト */
+.rp-text, 
+.unit-text {
+  font-weight: bold;
+  color: #64748B;
+  white-space: nowrap;
+}
+
+
+/* ==========================================
+   4. Summary Rows & Result Area (計算シミュレーション・結果表示)
+   ========================================== */
+.total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px dashed #E2E8F0;
+  font-weight: 700;
+  color: #334155;
+  width: 100%;
+  max-width: 600px; 
+}
+
+.calc-value {
+  font-size: 1.15rem;
+  color: #1E293B;
+}
+
+.calculation-summary-box {
+  width: 100%;
+  max-width: 600px;
+  background-color: #FFFFFF;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #CBD5E1;
+  margin-bottom: 24px;
+  box-sizing: border-box;
+}
+
+.summary-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 4px;
+  font-size: 0.95rem;
+  color: #334155;
+}
+
+.summary-divider {
+  border: none;
+  border-top: 1px dashed #CBD5E1;
+  margin: 12px 0;
+}
+
+.font-bold {
+  font-weight: 700;
+  color: #1E293B;
+}
+
+.summary-formula-desc {
+  margin: 16px 0 8px 4px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #64748B;
+}
+
+.sub-line {
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  color: #475569;
+  background-color: #F8FAFC;
+  border-left: 4px solid #CBD5E1;
+}
+
+.summary-total-divider {
+  border: none;
+  border-top: 3px double #CBD5E1;
+  margin: 20px 0 16px 0;
+}
+
+/* 最終合計ボックス */
+.total-final-line {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #1E293B;
+  background-color: #ECFDF5;
+  border-left: 4px solid #10B981;
+  padding: 16px;
+}
+
+#total-modal-bisnis {
+  font-size: 1.5rem;
+  color: #059669;
+  font-weight: 800;
+}
+
+/* ==========================================
+   5. Chart Layout (グラフ表示エリア)
+   ========================================== */
+.chart-container {
+  width: 100%;
+  max-width: 320px;
+  margin-top: 24px;
+  display: flex;
+  justify-content: flex-start;
+}

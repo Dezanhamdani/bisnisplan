@@ -1,0 +1,98 @@
+/* ==========================================
+   1. Table Container & Scroll (テーブルの横スクロール対応)
+   ========================================== */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto; /* スマホや画面幅が狭い時に横スクロールさせる */
+  margin-top: 16px;
+  border-radius: 8px;
+  border: 1px solid #E2E8F0;
+}
+
+/* ==========================================
+   2. Calendar Table Styling (テーブル本体の設定)
+   ========================================== */
+.calendar-table {
+  width: 100%;
+  border-collapse: collapse; /* 線の重複を防ぐ */
+  font-size: 0.9rem;
+  text-align: left;
+  min-width: 1000px; /* 横幅が狭くなりすぎないように固定値を確保 */
+}
+
+.calendar-table th,
+.calendar-table td {
+  padding: 10px 8px;
+  border-bottom: 1px solid #E2E8F0;
+  border-right: 1px solid #F1F5F9;
+  vertical-align: middle;
+}
+
+.calendar-table th {
+  background-color: #F8FAFC;
+  color: #475569;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+}
+
+/* ==========================================
+   3. Special Rows Color (計算・合計行の背景色システム)
+   ========================================== */
+/* 収入の合計行 */
+.row-total-pemasukan {
+  background-color: #F0FDF4; /* 淡いグリーン */
+  color: #166534;
+}
+
+/* 支出の合計行 */
+.row-total-biaya {
+  background-color: #FEF2F2; /* 淡いレッド */
+  color: #991B1B;
+}
+
+/* 最終純利益の行 */
+.row-net-income {
+  background-color: #F8FAFC; /* 落ち着いたグレー */
+  border-top: 2px solid #CBD5E1;
+  font-size: 0.95rem;
+}
+
+/* 平均値などを表示する固定列のグレーアウト */
+.readonly-total {
+  background-color: #F1F5F9;
+  font-weight: bold;
+  text-align: right;
+}
+
+/* 各マトリックスセルのテキスト配置 */
+.m-total-inc,
+.m-total-exp,
+.m-net {
+  text-align: right;
+  font-weight: 700;
+}
+
+/* セクションの区切り（追加ボタンがある行） */
+.section-divider-row td {
+  background-color: #FFFFFF;
+  border-bottom: 2px solid #E2E8F0;
+}
+
+/* ==========================================
+   4. Calendar Button Fixes (テーブル内追加ボタンの強制統一)
+   ========================================== */
+/* テーブルのマスの中でボタンがびよーんと広がらないように調整し、共通色を強制適用 */
+.calendar-table .btn-add {
+  display: inline-flex !important; /* 横幅いっぱいに広がるのを防ぐ */
+  width: auto !important;          /* 文字の幅に合わせる */
+  background-color: #475569 !important; /* 共通のチャコールグレー */
+  color: #FFFFFF !important;
+  white-space: nowrap !important;
+}
+
+/* マウスを乗せたとき（ホバー）の色の変化も共通化 */
+.calendar-table .btn-add:hover {
+  background-color: #334155 !important;
+}

@@ -1,0 +1,104 @@
+/* ==========================================
+   Tahap 4-3 : Matriks Proyeksi Keuangan CSS
+   ========================================== */
+
+/* 全体コンテナの余白調整 */
+#section-4-3 {
+  padding: 16px;
+  background-color: #FFFFFF;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.tab-desc {
+  font-size: 0.85rem;
+  color: #64748B;
+  margin-top: 4px;
+}
+
+/* 横スクロールラッパー */
+.matrix-scroll-wrapper {
+  width: 100%;
+  overflow-x: auto; /* スマホや画面が狭い時に横スクロールを強制 */
+  overflow-y: hidden;
+  margin-top: 16px;
+  border: 1px solid #CBD5E1;
+  border-radius: 6px;
+  background-color: #FFFFFF;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* テーブルの絶対ルール */
+.matrix-table {
+  width: max-content; /* 中身の指定幅（150px + 120px * 36）を維持 */
+  border-collapse: collapse;
+  table-layout: fixed; /* これにより列幅が文字の長さに引っ張られなくなります */
+  font-family: 'Noto Sans JP', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* 左端の「KATEGORI / PERIODE」ヘッダーの幅ロック */
+.matrix-table th.col-kategori-header {
+  min-width: 160px;
+  max-width: 160px;
+  width: 160px;
+  background-color: #F8FAFC;
+  color: #475569;
+  font-weight: bold;
+  font-size: 0.8rem;
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 2px solid #CBD5E1;
+  border-right: 1px solid #CBD5E1;
+  box-sizing: border-box;
+  position: sticky; /* スクロールしても項目名が見えるように固定したい場合はここを起点にできます */
+  left: 0;
+  z-index: 2;
+}
+
+/* 共通セルの枠線ルール */
+.matrix-table th, 
+.matrix-table td {
+  border: 1px solid #CBD5E1;
+  box-sizing: border-box;
+}
+
+/* ラベル入力欄の微調整 */
+.matrix-label-input {
+  background-color: #FFFFFF;
+  color: #334155;
+  font-weight: normal;
+  border: 1px solid #CBD5E1;
+  transition: border-color 0.15s ease;
+}
+.matrix-label-input:focus {
+  border-color: #3B82F6;
+  outline: none;
+  background-color: #F8FAFC;
+}
+
+/* クイックコピーアイコンの調整 */
+.btn-copy-fast {
+  color: #94A3B8;
+  transition: color 0.15s ease, transform 0.1s ease;
+}
+.btn-copy-fast:hover {
+  color: #3B82F6;
+  transform: translateY(-50%) scale(1.1) !important;
+}
+
+/* スクロールバーの見た目をスマホライクでスマートに */
+.matrix-scroll-wrapper::-webkit-scrollbar {
+  height: 8px;
+}
+.matrix-scroll-wrapper::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+.matrix-scroll-wrapper::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+.matrix-scroll-wrapper::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
