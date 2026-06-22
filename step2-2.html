@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tahap 2-2 : Kalender Bisnis Keluarga</title> 
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/step2-2.css"> 
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+  <div id="header-container"></div>
+
+  <main class="main-container">
+    
+    <div class="print-only-header" style="display: none;">
+      <img src="logo.svg" alt="Logo" class="print-logo">
+      <div class="print-meta"><p id="current-print-date"></p></div>
+    </div>
+
+    <section class="sheet-section">
+      <div class="tab-header">
+        <h2>Tahap 2-2: Kalender Bisnis Keluarga</h2>
+        <p>Pada tahap ini, silakan atur anggaran bulanan dari Januari hingga Desember. Anda bisa menambah atau menghapus komoditas dan biaya sesuai kebutuhan.</p>
+      </div>
+      
+      <div class="finance-block profile-block">
+        <div class="input-group">
+          <label for="name">
+            <i class="fa-solid fa-user"></i> Nama Pemagang
+          </label>
+          <input type="text" id="name" placeholder="Masukkan nama lengkap Anda">
+        </div>
+      </div>
+        <div class="calendar-actions-row">
+        <button id="btn-export-calendar-excel" class="btn-excel-direct">
+          <i class="fa-solid fa-file-excel"></i> Ekspor Excel
+        </button>
+      </div>
+      <div class="finance-block income-block">
+        <h3><i class="fa-solid fa-calendar-days"></i> Rencana Anggaran & Kalender Usaha (12 Bulan)</h3>
+        <p class="field-desc">Masukkan perkiraan Pendapatan Kotor berdasarkan Komoditas dan Pengeluaran berdasarkan Biaya Operasional untuk setiap bulan.</p>
+        
+        <div class="table-responsive">
+          <table class="calendar-table" id="calendar-table">
+            <thead>
+              <tr>
+                <th>Nama Komoditas / Biaya</th>   
+                <th class="readonly-total">Rata-rata /Bulan</th>
+                <th>Jan</th> <th>Feb</th> <th>Mar</th> <th>Apr</th> <th>Mei</th> <th>Jun</th>
+                <th>Jul</th> <th>Agt</th> <th>Sep</th> <th>Okt</th> <th>Nov</th> <th>Des</th>
+              </tr>
+            </thead>
+            
+            <tbody id="income-rows-container"></tbody>
+            
+            <tbody>
+              <tr class="row-total-pemasukan" id="row-total-income">
+                <td><b>Total Pemasukan (Rp)</b></td>
+                <td class="readonly-total" id="avg-total-income">Rp 0</td> 
+                <td class="m-total-inc" data-month="0">Rp 0</td> <td class="m-total-inc" data-month="1">Rp 0</td>
+                <td class="m-total-inc" data-month="2">Rp 0</td> <td class="m-total-inc" data-month="3">Rp 0</td>
+                <td class="m-total-inc" data-month="4">Rp 0</td> <td class="m-total-inc" data-month="5">Rp 0</td>
+                <td class="m-total-inc" data-month="6">Rp 0</td> <td class="m-total-inc" data-month="7">Rp 0</td>
+                <td class="m-total-inc" data-month="8">Rp 0</td> <td class="m-total-inc" data-month="9">Rp 0</td>
+                <td class="m-total-inc" data-month="10">Rp 0</td> <td class="m-total-inc" data-month="11">Rp 0</td>
+              </tr>
+              <tr class="section-divider-row">
+                <td colspan="14" style="padding: 12px 4px;">
+                  <button type="button" class="btn-add" id="btn-add-income-row">
+                    <i class="fa-solid fa-plus"></i> Tambah Komoditas
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+
+            <tbody id="expense-rows-container"></tbody>
+
+            <tbody>
+              <tr class="row-total-biaya" id="row-total-expense">
+                <td><b>Total Biaya Bisnis (Rp)</b></td>
+                <td class="readonly-total" id="avg-total-expense">Rp 0</td> 
+                <td class="m-total-exp" data-month="0">Rp 0</td> <td class="m-total-exp" data-month="1">Rp 0</td>
+                <td class="m-total-exp" data-month="2">Rp 0</td> <td class="m-total-exp" data-month="3">Rp 0</td>
+                <td class="m-total-exp" data-month="4">Rp 0</td> <td class="m-total-exp" data-month="5">Rp 0</td>
+                <td class="m-total-exp" data-month="6">Rp 0</td> <td class="m-total-exp" data-month="7">Rp 0</td>
+                <td class="m-total-exp" data-month="8">Rp 0</td> <td class="m-total-exp" data-month="9">Rp 0</td>
+                <td class="m-total-exp" data-month="10">Rp 0</td> <td class="m-total-exp" data-month="11">Rp 0</td>
+              </tr>
+              <tr class="section-divider-row">
+                <td colspan="14" style="padding: 12px 4px;">
+                  <button type="button" class="btn-add" id="btn-add-expense-row">
+                    <i class="fa-solid fa-plus"></i> Tambah Item Biaya
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+
+            <tbody>
+              <tr class="row-net-income" id="row-net-summary">
+                <td><b>(=) Pendapatan Bersih (Rp)</b></td>
+                <td class="readonly-total" id="avg-total-net" style="background-color: #e2e8f0;">Rp 0</td> 
+                <td class="m-net" data-month="0">Rp 0</td> <td class="m-net" data-month="1">Rp 0</td>
+                <td class="m-net" data-month="2">Rp 0</td> <td class="m-net" data-month="3">Rp 0</td>
+                <td class="m-net" data-month="4">Rp 0</td> <td class="m-net" data-month="5">Rp 0</td>
+                <td class="m-net" data-month="6">Rp 0</td> <td class="m-net" data-month="7">Rp 0</td>
+                <td class="m-net" data-month="8">Rp 0</td> <td class="m-net" data-month="9">Rp 0</td>
+                <td class="m-net" data-month="10">Rp 0</td> <td class="m-net" data-month="11">Rp 0</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <div id="footer-container"></div>
+
+  <script src="js/header-route.js"></script> 
+  <script src="js/step2-2.js"></script> 
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="js/calendar-excel.js"></script>
+</body>
+</html>

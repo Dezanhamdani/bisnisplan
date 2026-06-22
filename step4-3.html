@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tahap 4-3 : Matriks Proyeksi Keuangan</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/step4-3.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+  <div id="header-container"></div>
+
+  <main class="main-container">
+    
+    <div class="print-only-header" style="display: none;">
+      <img src="logo.svg" alt="Logo" class="print-logo">
+      <div class="print-meta"><p id="current-print-date"></p></div>
+    </div>
+
+    <div class="sheet-section" id="section-4-3">
+      
+      <div class="tab-header">
+        <h2><i class="fa-solid fa-table"></i> Matriks Proyeksi Keuangan (36 Bulan)</h2>
+        <p class="tab-desc">* Tip: Masukkan angka di bulan pertama, lalu klik <i class="fa-solid fa-copy"></i> untuk copy ke semua bulan (36 bulan).</p>
+      </div>
+
+      <div class="calendar-actions-row">
+        <button id="btn-export-calendar-excel" class="btn-excel-direct">
+          <i class="fa-solid fa-file-excel"></i> Ekspor Excel
+        </button>
+      </div>
+
+      <div class="matrix-scroll-wrapper">
+        <table class="matrix-table" id="calendar-table">
+          <thead>
+            <tr id="header-months-row">
+              <th class="col-kategori-header">KATEGORI / PERIODE</th>
+            </tr>
+          </thead>
+          <tbody id="calendar-body-rows">
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </main>
+
+  <div id="footer-container"></div>
+
+  <script src="js/header-route.js"></script>
+  <script src="js/step4-3.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="js/calendar-excel.js"></script>
+</body>
+</html>

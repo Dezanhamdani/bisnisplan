@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tahap 1 : Literasi Keuangan</title> 
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/step1.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+  <div id="header-container"></div>
+
+  <main class="main-container">
+    <section class="sheet-section">
+      <div class="tab-header">
+        <h2>Tahap 01: Literasi Keuangan</h2>
+        <p>Tahap pertama merupakan Literasi Keuangan, dimana peserta magang
+        harus bisa mengelola keuangan dengan baik. Pendapatan dan juga pengeluaran
+        dalam satu bulan di Jepang perlu diperhitungkan agar bisa memprediksi
+        tabungan selama magang untuk modal bisnis.
+        Berikut ini adalah format literasi keuangan beserta cara pengisiannya.</p>
+      </div>
+
+      <div class="finance-block profile-block">
+        <div class="input-group">
+          <label for="name">
+            <i class="fa-solid fa-user"></i> Nama Pemagang
+          </label>
+          <input type="text" id="name" placeholder="Masukkan nama lengkap Anda">
+        </div>
+      </div>
+
+      <div class="finance-block saving-block">
+        <h3><i class="fa-solid fa-piggy-bank"></i> 1. Tabungan Saat Ini</h3>
+        <p class="field-desc">Total uang dan tabungan yang Anda miliki saat ini baik di Jepang maupun di Indonesia.</p>
+        <div class="input-group">
+          <label>Uang yang Anda miliki saat ini (Rp)</label>
+          <div class="row-inputs single-row">
+            <span class="rp-text">Rp</span>
+            <input type="number" id="current-saving" placeholder="0" min="0">
+          </div>
+        </div>
+      </div>
+
+      <div class="finance-block income-block dynamic-finance-group" data-group="income">
+        <h3><i class="fa-solid fa-wallet"></i> 2. Pemasukan Bulanan</h3>
+        <p class="field-desc">Hasil yang diperoleh setiap bulan baik dari hasil magang maupun bisnis <br> Contoh: Gaji Pokok, Penjualan Produk ...</p>
+        
+        <div class="list-container">
+          <div class="input-group dynamic-row">
+            <div class="row-inputs">
+              <input type="text" class="item-name" placeholder="Nama item">
+              <span class="rp-text">Rp</span>
+              <input type="number" class="item-amount" placeholder="0" min="0">
+            </div>
+          </div>
+        </div>
+
+        <div class="button-row">
+          <button type="button" class="btn-add">
+            <i class="fa-solid fa-plus"></i> Tambah Item
+          </button>
+        </div>
+
+        <div class="total-row">
+          <span>Total Pemasukan:</span>
+          <span class="total-label-display">Rp 0</span>
+        </div>
+      </div>
+
+      <div class="finance-block expense-block dynamic-finance-group" data-group="living">
+        <h3><i class="fa-solid fa-file-invoice-dollar"></i> 3. Biaya Hidup di Jepang</h3>
+        <p class="field-desc">Biaya hidup adalah biaya yang dikeluarkan setiap bulan selama tinggal di Jepang. <br>Contoh: makan, asrama, pajak, hiburan, dll.</p>
+        
+        <div class="list-container">
+          <div class="input-group dynamic-row">
+            <div class="row-inputs">
+              <input type="text" class="item-name" placeholder="Nama item">
+              <span class="rp-text">Rp</span>
+              <input type="number" class="item-amount" placeholder="0" min="0">
+            </div>
+          </div>
+        </div>
+
+        <div class="button-row">
+          <button type="button" class="btn-add">
+            <i class="fa-solid fa-plus"></i> Tambah Item
+          </button>
+        </div>
+
+        <div class="total-row">
+          <span>Total Biaya Hidup:</span>
+          <span class="total-label-display">Rp 0</span>
+        </div>
+      </div>
+
+      <div class="finance-block remittance-block">
+        <h3><i class="fa-solid fa-hand-holding-dollar"></i> 4. Kiriman Uang Keluarga</h3>
+        <p class="field-desc">Jumlah rata-rata uang yang dikirim untuk keluarga setiap bulan.</p>
+        <div class="input-group">
+          <label>Rata-rata kiriman per month</label>
+          <div class="row-inputs single-row">
+            <span class="rp-text">Rp</span>
+            <input type="number" id="remittance" placeholder="0" min="0">
+          </div>
+        </div>
+      </div>
+
+      <div class="finance-block desire-block dynamic-finance-group" data-group="desire">
+        <h3><i class="fa-solid fa-heart"></i> 5. Biaya Keinginan</h3>
+        <p class="field-desc">Biaya keinginan selama magang dan keperluan setelah magang adalah biaya di luar kegiatan bisnis.<br>Contoh: Hiburan, Belanja, dll.</p>
+        
+        <div class="list-container">
+          <div class="input-group dynamic-row">
+            <div class="row-inputs">
+              <input type="text" class="item-name" placeholder="Nama item">
+              <span class="rp-text">Rp</span>
+              <input type="number" class="item-amount" placeholder="0" min="0">
+            </div>
+          </div>
+        </div>
+
+        <div class="button-row">
+          <button type="button" class="btn-add">
+            <i class="fa-solid fa-plus"></i> Tambah Item
+          </button>
+        </div>
+
+        <div class="total-row">
+          <span>Total Biaya Keinginan:</span>
+          <span class="total-label-display">Rp 0</span>
+        </div>
+      </div>
+
+      <div class="finance-block period-block">
+        <h3><i class="fa-solid fa-calendar-days"></i> 6. Sisa Bulan di Jepang</h3>
+        <p class="field-desc">Jumlah bulan yang tersisa sampai masa kontrak magang berakhir.</p>
+        <div class="input-group">
+          <label>Jumlah bulan tersisa</label>
+          <div class="row-inputs single-row">
+            <input type="number" id="remaining-months" placeholder="0" min="0">
+            <span class="unit-text">Bulan</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="finance-block result-block">
+        <h3><i class="fa-solid fa-coins"></i> Ringkasan & Total Modal Bisnis</h3>
+        <p class="field-desc">Kalkulasi total modal bisnis Anda berdasarkan sisa bulan di Jepang.</p>
+        
+        <div class="chart-container" style="margin-bottom: 24px;">
+          <canvas id="financeChart"></canvas>
+        </div>
+
+        <div class="calculation-summary-box">
+          <div class="summary-line"><span>(＋) 2. Total Pemasukan Bulanan</span> <span id="summary-income">Rp 0</span></div>
+          <div class="summary-line"><span>(－) 3. Total Biaya Hidup</span> <span id="summary-living" class="text-minus">Rp 0</span></div>
+          <div class="summary-line"><span>(－) 4. Kiriman Uang Keluarga</span> <span id="summary-remittance" class="text-minus">Rp 0</span></div>
+          <div class="summary-line"><span>(－) 5. Total Biaya Keinginan</span> <span id="summary-desire" class="text-minus">Rp 0</span></div>
+          
+          <hr class="summary-divider">
+          <div class="summary-line font-bold"><span>(=) Sisa Uang Bebas / Bulan</span> <span id="summary-monthly-free">Rp 0</span></div>
+          
+          <div class="summary-formula-desc">
+            Formula: (Sisa Uang Bebas × 6. Sisa Bulan) ＋ 1. Tabungan Saat Ini
+          </div>
+          <div class="summary-line sub-line">
+            <span>(×) 6. Sisa Bulan di Jepang</span>
+            <span id="summary-months">0 Bulan</span>
+          </div>
+          <div class="summary-line sub-line">
+            <span>(＋) 1. Tabungan Saat Ini</span>
+            <span id="summary-current-saving">Rp 0</span>
+          </div>
+          
+          <hr class="summary-total-divider">
+          <div class="summary-line total-final-line">
+            <span>TOTAL MODAL BISNIS ANDA:</span>
+            <span id="total-modal-bisnis">Rp 0</span>
+          </div>
+        </div>
+      </div> </section>
+  </main>
+
+  <div id="footer-container"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="js/header-route.js"></script> 
+  <script src="js/step1.js"></script> 
+</body>
+</html>
