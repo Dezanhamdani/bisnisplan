@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (totals.living === 0 && remittance === 0 && totals.desire === 0 && chartFreeMoney === 0) {
       // Revert to gray placeholder chart if all inputs are zero
-      financeChart.data.labels = ['Silakan masukkan angka (数字を入力してください)'];
+      financeChart.data.labels = ['Silakan masukkan angka'];
       financeChart.data.datasets[0].data = [1];
       financeChart.data.datasets[0].backgroundColor = ['#e2e8f0'];
     } else {
