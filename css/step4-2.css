@@ -1,8 +1,7 @@
 /* ==========================================
-   Tahap 4-2 専用の最小限レイアウト設定
+   Tahap 4-2 専用の基本レイアウト設定（PC用）
    ========================================== */
 .table-scroll-container {
-  overflow-x: auto;
   margin-top: 12px;
   margin-bottom: 12px;
   width: 100%;
@@ -12,7 +11,7 @@
   width: 100%;
   border-collapse: collapse;
   text-align: left;
-  table-layout: fixed; /* 列幅を固定して完全に揃えるための重要な設定 */
+  table-layout: fixed; /* PCで列幅を完全に固定して1列目を綺麗に揃える */
 }
 
 .invest-table th,
@@ -23,13 +22,13 @@
 }
 
 /* ------------------------------------------
-   【横幅の統一設定】合計で幅をピタッと合わせます
+   【PC用・横幅の統一設定】ミリ単位でピタッと揃います
    ------------------------------------------ */
-.invest-table .col-price        { width: 180px; } /* 価格列 */
-.invest-table .col-month        { width: 110px; } /* 2-1:Sisa / 2-2:Beli 列 */
-.invest-table .col-span         { width: 110px; } /* 2-2:Masa Pakai 列 */
-.invest-table .col-reserve-calc { width: 180px; } /* Simpanan（計算結果）列 */
-.invest-table .col-action       { width: 45px;  } /* ゴミ箱ボタン列 */
+.invest-table .col-price        { width: 170px; } /* 価格列 */
+.invest-table .col-month        { width: 110px; } /* Sisa / Beli 列 */
+.invest-table .col-span         { width: 110px; } /* Masa Pakai 列 */
+.invest-table .col-reserve-calc { width: 170px; } /* Simpanan 列 */
+.invest-table .col-action       { width: 50px;  } /* ゴミ箱ボタン列 */
 
 .sub-asset-section {
   width: 100%;
@@ -96,12 +95,6 @@
   width: 100%;
 }
 
-@media (max-width: 768px) {
-  .form-grid-optimized {
-    grid-template-columns: 1fr;
-  }
-}
-
 /* ==========================================================================
    Setup Dasar: カレンダー入力欄（#sim-start-date）の最適化設定
    ========================================================================== */
@@ -126,15 +119,8 @@
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15) !important;
 }
 
-@media (max-width: 768px) {
-  #sim-start-date {
-    padding: 6px 8px !important;
-    font-size: 0.85rem !important;
-  }
-}
-
 /* ==========================================================================
-   テーブル内パーツ用 追加スタイル設定
+   テーブル内パーツ用 追加スタイル設定（インラインCSSの共通化）
    ========================================================================== */
 .invest-table td input {
   width: 100%;
@@ -196,10 +182,108 @@
   justify-content: center;
 }
 
-/* ==========================================================================
-   【重要】1行目のゴミ箱ボタンを自動で非表示にするルール
-   ========================================================================== */
+/* 【重要】PC表示時は最初の1行目のゴミ箱ボタンを非表示 */
 #existing-asset-container tr:first-child .btn-delete-row,
 #new-asset-container tr:first-child .btn-delete-row {
   display: none !important;
+}
+
+/* ==========================================================================
+   📱 スマホ専用レスポンシブ（幅768px以下）: 安全なカード型変形
+   ========================================================================== */
+@media (max-width: 768px) {
+  .form-grid-optimized {
+    grid-template-columns: 1fr;
+  }
+
+  #sim-start-date {
+    padding: 6px 8px !important;
+    font-size: 0.85rem !important;
+  }
+
+  /* テーブルの元々の表構造を強制解除 */
+  .invest-table {
+    display: block;
+    width: 100%;
+  }
+
+  /* 上部の見出し行(thead)を完全に非表示 */
+  .invest-table thead {
+    display: none;
+  }
+
+  /* 行を縦に並べるFlexboxコンテナ化 */
+  .invest-table tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* カード同士の隙間 */
+    width: 100%;
+  }
+
+  /* 1本の「行(tr)」を独立したグレーの「カード」に変形 */
+  .invest-table tr {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 基本項目は2列のグリッドで整列 */
+    gap: 12px;
+    padding: 16px;
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+  }
+
+  /* 各セル(td)の内部をFlexboxで縦並び(ラベル+入力欄)にする */
+  .invest-table td {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 !important;
+    width: 100% !important;
+  }
+
+  /* 最初の列（アイテム名入力欄）だけはカードの横幅いっぱいに1枚で広げる */
+  .invest-table td:first-child {
+    grid-column: 1 / -1;
+  }
+
+  /* 擬似要素を使ってスマホ専用の小さなラベル（見出し）を安全に強制挿入 */
+  .invest-table td::before {
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: #64748B;
+    margin-bottom: 4px;
+  }
+
+  /* 2-1 (Aset Lama: 既存アセット) 用の見出しテキスト */
+  #existing-asset-container td:nth-child(1)::before { content: "Nama Item Aset"; }
+  #existing-asset-container td:nth-child(2)::before { content: "Harga"; }
+  #existing-asset-container td:nth-child(3)::before { content: "Sisa Bulan"; }
+  #existing-asset-container td:nth-child(4)::before { content: "Simpanan Cadangan"; }
+
+  /* 2-2 (Aset Baru: 新規アセット) 用の見出しテキスト */
+  #new-asset-container td:nth-child(1)::before { content: "Komponen Aset Baru"; }
+  #new-asset-container td:nth-child(2)::before { content: "Harga"; }
+  #new-asset-container td:nth-child(3)::before { content: "Beli Bulan Ke-"; }
+  #new-asset-container td:nth-child(4)::before { content: "Masa Pakai (Bln)"; }
+  #new-asset-container td:nth-child(5)::before { content: "Simpanan Cadangan"; }
+
+  /* ゴミ箱ボタンのあるセルをカードの右上（絶対配置）へ安全に退避 */
+  .invest-table td.font-center:last-child {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: auto !important;
+    height: auto;
+  }
+  .invest-table td.font-center:last-child::before {
+    content: "" !important; /* ゴミ箱の上部には文字を付けない */
+  }
+
+  /* カード型になっても、LocalStorageから復元されても、最初の1枚目カードからはゴミ箱を絶対に消す */
+  #existing-asset-container tr:first-child .btn-delete-row,
+  #new-asset-container tr:first-child .btn-delete-row {
+    display: none !important;
+  }
 }
