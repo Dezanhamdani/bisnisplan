@@ -4,11 +4,16 @@ document.addEventListener("DOMContentLoaded", function() {
   const tbody = document.getElementById('calendar-body-rows');
   if (!headerRow || !tbody) return;
 
- // --- 1. 初期データの読み込み ---
+  // --- 1. 初期データの読み込み ---
   const startSimDate = localStorage.getItem('sim-start-date') || "2026-04-01";
   const initialModal = parseFloat(localStorage.getItem('fund-source-amount')) || 0; 
   const initialSalary = parseFloat(localStorage.getItem('upah-diharapkan')) || 0; 
   const assetPlans = JSON.parse(localStorage.getItem('invest-items') || "[]");
+
+  // 💡 抜けていた変数の定義を完全に復元
+  const [startYear, startMonth] = startSimDate.split('-').map(Number);
+  const monthNames = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"];
+  let komoditasCounter = 0, biayaCounter = 0;
 
   localStorage.removeItem('step4-3-dynamic-modal');
 
@@ -115,7 +120,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const isTitleCell = id.includes('title');
     
     tr.innerHTML = `
-      <td style="min-width: 160px; max-width: 160px; width: 160px; height: 38px; padding: 4px 8px; font-size: 0.8rem; font-weight: bold; color: #1E293B; line-height: 1.2; box-sizing: border-box; vertical-align: middle; border-bottom: 1px solid #CBD5E1; border-right: 1px solid #E2E8F0; ${isTitleCell ? 'background-color: #E2E8F0;' : 'background-color: #F8FAFC;'}">
+      <td style="min-width: 160px; max-width: 160px; width: 160px; height: 38px; padding: 4px 8px; font-size: 0.8rem; font-weight: bold; color: #1E293B; line-height: 1.2; box-sizing: border-box; vertical-align: middle; border-bottom: 1px solid #CBD5E1; border-right: 1px solid #E2E8F0; ${isTitleCell ? 'background-color: #E2E8F0;' : 'background-color: #F8FAFC;' }">
         ${label}
       </td>
     `;
@@ -208,7 +213,7 @@ document.addEventListener("DOMContentLoaded", function() {
         labaCell.style.backgroundColor = laba < 0 ? "#EF4444" : "#ECFDF5";
       }
 
-      // ★★★ 4 & 5. 【大改修】繰り返し積立・購入リキャスト処理 ★★★
+      // ★★★ 4 & 5. 繰り返し積立・購入リキャスト処理 ★★★
       let investEventAmount = 0, monthlyAssetReserveTotal = 0;
       let assetBoughtLabels = [];
 
@@ -216,40 +221,32 @@ document.addEventListener("DOMContentLoaded", function() {
         if (a.price <= 0) return;
 
         if (a.isExisting) {
-          // 2-1 既存アセットのループ処理（span = 寿命）
           const cycle = a.span; 
           if (cycle > 0) {
-            // 周期の最後（cycle, cycle*2, cycle*3...）に買い替え実支出
             if (m % cycle === 0) {
               investEventAmount += a.price;
               assetBoughtLabels.push(a.name);
             }
-            // 毎月常に積み立てる（買い替えの翌月からも自動で再開される）
             monthlyAssetReserveTotal += Math.round(a.price / cycle);
           }
         } else {
-          // 2-2 新規アセットのループ処理（shopMonth = 初回購入月, span = 新寿命）
           const firstShop = a.shopMonth;
           const cycle = a.span;
 
           if (m <= firstShop) {
-            // 初回購入までの積立期間
             if (firstShop > 0) {
               monthlyAssetReserveTotal += Math.round(a.price / firstShop);
             }
-            // 初回購入月の判定
             if (m === firstShop) {
               investEventAmount += a.price;
               assetBoughtLabels.push(a.name);
             }
           } else if (cycle > 0) {
-            // 初回購入より後のフェーズ（二回目以降の買い替えサイクル）
             const monthsAfterFirst = m - firstShop;
             if (monthsAfterFirst % cycle === 0) {
               investEventAmount += a.price;
               assetBoughtLabels.push(a.name);
             }
-            // 翌月から途切れず次のサイクルへ向けて積立
             monthlyAssetReserveTotal += Math.round(a.price / cycle);
           }
         }
@@ -287,7 +284,7 @@ document.addEventListener("DOMContentLoaded", function() {
   };
 
   // 手入力ボックスの埋め込み関数
-function injectManualInputs(id, colorStyle) {
+  function injectManualInputs(id, colorStyle) {
     const cachedFixedData = JSON.parse(localStorage.getItem(`step4-3-fixed-${id}`) || "[]");
     const parentRow = document.getElementById(`row-tr-${id}`);
 
@@ -296,14 +293,12 @@ function injectManualInputs(id, colorStyle) {
       if (cell) {
         let defaultVal = cachedFixedData[m - 1] !== undefined ? cachedFixedData[m - 1] : 0;
         
-        // --- ★ここから自動連動の最優先ガード処理を追加 ---
+        // --- 自動連動の最優先ガード処理 ---
         if (id === 'fund-source-amount' && m === 1) {
-          // 1ヶ月目の資本金は、キャッシュが空(0)であるか、まだデータが存在しない場合、4-2の最新金額を強制適用
           if (defaultVal === 0 || cachedFixedData[m - 1] === undefined) {
             defaultVal = initialModal;
           }
         } else if (id === 'upah-diharapkan') {
-          // 希望月給も同様に、キャッシュが空(0)の月は4-2の最新設定額を自動で復元補填
           if (defaultVal === 0 || cachedFixedData[m - 1] === undefined) {
             defaultVal = initialSalary;
           }
