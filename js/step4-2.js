@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function() {
       const span = parseInt(row.querySelector('.ex-span')?.value) || 0;
       let reserve = (price > 0 && span > 0) ? Math.round(price / span) : 0;
       const resInput = row.querySelector('.ex-reserve-needed');
-      if (resInput) resInput.value = "Rp " + reserve.toLocaleString('id-ID');
+      if (resInput) resInput.value = reserve > 0 ? "Rp " + reserve.toLocaleString('id-ID') : "Rp 0";
     });
 
     newAssetContainer.querySelectorAll('.new-row').forEach(row => {
@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function() {
       const shopMonth = parseInt(row.querySelector('.new-month')?.value) || 1;
       let reserve = (price > 0 && shopMonth > 0) ? Math.round(price / shopMonth) : 0;
       const resInput = row.querySelector('.new-reserve-needed');
-      if (resInput) resInput.value = "Rp " + reserve.toLocaleString('id-ID');
+      if (resInput) resInput.value = reserve > 0 ? "Rp " + reserve.toLocaleString('id-ID') : "Rp 0";
     });
 
     saveAllToStorage();
@@ -77,13 +77,14 @@ document.addEventListener("DOMContentLoaded", function() {
       const val = baseInput.value;
       const container = row.closest('#existing-asset-container, #new-asset-container');
       if (!container) return;
-      container.querySelectorAll(targetClassName).forEach(inp => inp.value = val);
+      container.querySelectorAll(targetClassName).forEach(inp => {
+        inp.value = val;
+      });
       calculateTotals();
     });
   }
 
   // --- 3. 行追加関数：既存アセット（Aset Lama）---
-  // 💡 <tr> 要素を生成。テーブル（表）のセルに合わせて綺麗に入力欄だけを並べます
   function createExistingRowHtml(name = "", price = "", span = "") {
     const tr = document.createElement('tr');
     tr.className = 'existing-row';
@@ -111,10 +112,14 @@ document.addEventListener("DOMContentLoaded", function() {
     `;
     existingContainer.appendChild(tr);
     attachAssetCopyFeature(tr, '.ex-price');
+    
+    // 追加した行内の全入力欄にリアルタイム計算イベントを結びつける
+    tr.querySelectorAll('input').forEach(input => {
+      input.addEventListener('input', calculateTotals);
+    });
   }
 
   // --- 4. 行追加関数：新規アセット（Aset Baru）---
-  // 💡 <tr> 要素を生成。テーブル（表）のセルに合わせて綺麗に入力欄だけを並べます
   function createNewRowHtml(name = "", price = "", shopMonth = "1", span = "") {
     const tr = document.createElement('tr');
     tr.className = 'new-row';
@@ -145,6 +150,11 @@ document.addEventListener("DOMContentLoaded", function() {
     `;
     newAssetContainer.appendChild(tr);
     attachAssetCopyFeature(tr, '.new-price');
+
+    // 追加した行内の全入力欄にリアルタイム計算イベントを結びつける
+    tr.querySelectorAll('input').forEach(input => {
+      input.addEventListener('input', calculateTotals);
+    });
   }
 
   // --- 5. 初期ロード時のデータ復元展開 ---
@@ -168,14 +178,17 @@ document.addEventListener("DOMContentLoaded", function() {
   [nameInput, startDateInput, fundSourceInput, salaryInput].forEach(inp => {
     if (inp) inp.addEventListener('input', saveAllToStorage);
   });
+
+  // コンテナ全体のインプット監視
   existingContainer.addEventListener('input', calculateTotals);
   newAssetContainer.addEventListener('input', calculateTotals);
 
   if (btnAddExisting) btnAddExisting.addEventListener('click', () => { createExistingRowHtml(); calculateTotals(); });
   if (btnAddNewAsset) btnAddNewAsset.addEventListener('click', () => { createNewRowHtml(); calculateTotals(); });
 
-  // 削除イベントの委譲
+  // 削除イベントの委譲（バグ修正版）
   document.body.addEventListener('click', (e) => {
+    // アイコンをクリックした場合も考慮して .btn-delete-row を正確に補足
     const deleteBtn = e.target.closest('.btn-delete-row');
     if (deleteBtn) {
       const row = deleteBtn.closest('.existing-row, .new-row');
