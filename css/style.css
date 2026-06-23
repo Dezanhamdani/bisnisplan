@@ -327,7 +327,7 @@ footer p {
    6. Responsive (スマホ用設定)
    ========================================== */
 @media (max-width: 768px) {
-  /* ① ヘッダーを縦並びにして要素の衝突を防を防ぐ */
+  /* ① ヘッダーを縦並びにして要素の衝突を防ぐ */
   .common-header {
     padding: 12px 16px !important;
     height: auto !important;
@@ -411,14 +411,12 @@ footer p {
   .main-container { margin: 20px auto !important; padding: 0 12px !important; }
   .sheet-section { padding: 24px 16px !important; border-radius: 16px !important; }
   
-  /* 左右の無駄な巨大余白(16px)を半分(8px)に削って、文字が見える領域を最大化！ */
+  /* 左右の無駄な巨大余白を半分に削って、文字が見える領域を最大化！ */
   .input-group input[type="text"],
   .input-group input[type="number"],
   .input-group input[type="url"],
   .input-group input[type="date"],
   .input-group textarea,
-  .invest-table input,
-  .calendar-table input,
   .item-name,
   .item-amount,
   .month-input {
@@ -429,27 +427,25 @@ footer p {
 
   /* マトリクス表内の「Rp」の文字やコピーアイコンの位置調整 */
   .input-group span,
-  .invest-table span,
   div[style*="position: relative"] span {
     font-size: 0.75rem !important;
     left: 4px !important;
   }
 
-  /* 💡 インラインの追加・ゴミ箱ボタンの余白・枠線を限界までシャープにカット */
+  /* インラインの追加・ゴミ箱ボタンの余白・サイズをシャープにカット */
   .btn-add-inline,
   .btn-table-action,
   .btn-table-action.btn-delete-row {
     width: 24px !important;
     height: 24px !important;
     min-width: 24px !important;
-    padding: 0 !important;          /* 内側の余白を完全にゼロにしてサイズ縮小 */
-    margin: 0 !important;           /* 外側の余白も排除 */
+    padding: 0 !important;
+    margin: 0 !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
   }
 
-  /* 💡 アイコンフォント自体の大きさと余白も徹底的に削り、文字スペースへ還元 */
   .btn-add-inline i,
   .btn-table-action i {
     font-size: 0.8rem !important;
@@ -457,7 +453,9 @@ footer p {
     margin: 0 !important;
   }
   
-  /* 1. 横並びのコンテナ全体の隙間を狭くし、商品名側の親要素を限界まで引き伸ばす */
+  /* ==========================================
+     ⚡ 【Tahap 1 用】スマホ画面用の横幅黄金比率
+     ========================================== */
   .row-inputs {
     width: 100% !important;
     display: flex !important;
@@ -465,28 +463,22 @@ footer p {
     gap: 6px !important;
   }
   .row-inputs > div:first-child {
-    flex: 1 !important; /* 金額欄以外の残り全ての横幅をここで使う */
+    flex: 1 !important;
     display: flex !important;
     align-items: center !important;
     gap: 4px !important;
   }
-
-  /* 2. 商品名（Nama Komoditas）の入力欄を限界まで広げる */
   .item-name {
     width: 100% !important;
     flex: 1 !important;
   }
-
-  /* 3. 金額入力欄（Rp 0）の横幅を固定してコンパクトにし、押しつぶされ防止 */
   .row-inputs > div:nth-child(2) {
-    width: 100px !important; /* スマホでは100px固定で十分コンパクト */
+    width: 100px !important;
     flex-shrink: 0 !important;
   }
   .row-inputs > div:nth-child(2) input {
-    padding-left: 24px !important; /* Rpの文字と数字が重ならない最小余白 */
+    padding-left: 24px !important;
   }
-
-  /* 4. ゴミ箱ボタンが入力欄の外側で押しつぶされるのを完全に防ぐ固定指定 */
   .dynamic-row .btn-table-action {
     flex-shrink: 0 !important;
   }
