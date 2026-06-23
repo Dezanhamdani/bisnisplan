@@ -71,39 +71,28 @@
         <div class="sub-asset-section" style="margin-bottom: 30px;">
           <h4>2-1. Aset yang Sudah Dimiliki</h4>
           <p class="field-desc-sub">Hitung cadangan berdasarkan perkiraan sisa masa pakai alat (Sisa Umur Alat) hingga waktu pembaruan tiba.</p>
-          <div class="table-scroll-container">
-            <table class="invest-table">
-              <thead>
-                <tr>
-                  <th style="min-width: 250px;">Nama Item Aset</th>
-                  <th class="col-price">Harga Pembaruan (Rp)</th>
-                  <th class="col-span">Sisa Masa Pakai (Bln)</th>
-                  <th class="col-reserve-calc">Simpanan / Bln</th>
-                </tr>
-              </thead>
-              <tbody id="existing-asset-container">
-                </tbody>
-            </table>
+          
+          <div id="existing-asset-container" style="width: 100%; display: flex; flex-direction: column; gap: 10px;">
+            </div>
+
+          <div class="button-row-sub" style="margin-top: 12px;">
+            <button type="button" id="btn-add-existing" class="btn-add-small">
+              <i class="fa-solid fa-plus"></i> Tambah Aset Lama
+            </button>
           </div>
         </div>
 
         <div class="sub-asset-section">
           <h4>2-2. Perencanaan Sarana Investasi</h4>
           <p class="field-desc-sub">Rencanakan dana untuk membeli alat baru di tengah jalan simulasi, dihitung sejak bulan pertama hingga target bulan belanja.</p>
-          <div class="table-scroll-container">
-            <table class="invest-table">
-              <thead>
-                <tr>
-                  <th style="min-width: 250px;">Nama Komponen Aset</th>
-                  <th class="col-price">Nilai Investasi (Rp)</th>
-                  <th class="col-month">Bulan Belanja Ke-</th>
-                  <th class="col-span">Masa Pakai Baru (Bln)</th>
-                  <th class="col-reserve-calc">Simpanan / Bln</th>
-                </tr>
-              </thead>
-              <tbody id="new-asset-container">
-                </tbody>
-            </table>
+          
+          <div id="new-asset-container" style="width: 100%; display: flex; flex-direction: column; gap: 10px;">
+            </div>
+
+          <div class="button-row-sub" style="margin-top: 12px;">
+            <button type="button" id="btn-add-new-asset" class="btn-add-small">
+              <i class="fa-solid fa-plus"></i> Tambah Aset Baru
+            </button>
           </div>
         </div>
 
