@@ -128,3 +128,74 @@
     font-size: 0.85rem !important;
   }
 }
+
+/* ==========================================================================
+   テーブル内パーツ用 追加スタイル設定（インラインCSS排除化）
+   ========================================================================== */
+.invest-table td input {
+  width: 100%;
+  padding: 6px 8px;
+  font-size: 0.85rem;
+  height: 32px;
+  border-radius: 6px;
+  border: 1px solid #CBD5E1;
+  background: #fff;
+  box-sizing: border-box;
+  outline: none;
+}
+.invest-table td.td-currency {
+  position: relative;
+}
+.invest-table td.td-currency span {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94A3B8;
+  font-size: 0.75rem;
+  pointer-events: none;
+}
+.invest-table td.td-currency input {
+  padding-left: 24px;
+  padding-right: 24px;
+}
+.invest-table td.td-currency .btn-copy-fast {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94A3B8;
+  cursor: pointer;
+  font-size: 0.7rem;
+}
+.invest-table .font-center {
+  text-align: center !important;
+}
+.invest-table .font-bold {
+  font-weight: bold !important;
+}
+.invest-table .readonly-style {
+  background: #E2E8F0 !important;
+  color: #475569 !important;
+  font-size: 0.8rem;
+}
+.invest-table .btn-delete-row {
+  background: none;
+  border: none;
+  color: #EF4444;
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ==========================================================================
+   【重要】1行目のゴミ箱ボタンを自動で非表示にするルール
+   ========================================================================== */
+#existing-asset-container tr:first-child .btn-delete-row,
+#new-asset-container tr:first-child .btn-delete-row {
+  display: none !important;
+}
