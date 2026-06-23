@@ -1,4 +1,5 @@
-// Tahap 4-2 : Fixed Assets Calculation & Storage Auto-Sync (Dasar Category Synced)
+// js/step4-2.js
+
 document.addEventListener("DOMContentLoaded", function() {
   const existingContainer = document.getElementById('existing-asset-container');
   const btnAddExisting = document.getElementById('btn-add-existing');
@@ -21,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const allAssetItems = [];
 
-    // A. 2-1 既存アセット
+    // A. 既存アセットの回収
     existingContainer.querySelectorAll('.existing-row').forEach(row => {
       const name = row.querySelector('.ex-name')?.value || "";
       const price = parseFloat(row.querySelector('.ex-price')?.value) || 0;
@@ -31,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     });
 
-    // B. 2-2 新規アセット
+    // B. 新規アセットの回収
     newAssetContainer.querySelectorAll('.new-row').forEach(row => {
       const name = row.querySelector('.new-name')?.value || "";
       const price = parseFloat(row.querySelector('.new-price')?.value) || 0;
@@ -66,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function() {
     saveAllToStorage();
   }
 
-  // --- 【共通化】アセット行コピー機能 ---
+  // --- コピー機能（一括反映） ---
   function attachAssetCopyFeature(row, targetClassName) {
     const copyBtn = row.querySelector('.btn-copy-fast');
     if (!copyBtn) return;
@@ -74,54 +75,80 @@ document.addEventListener("DOMContentLoaded", function() {
       const baseInput = row.querySelector(targetClassName);
       if (!baseInput) return;
       const val = baseInput.value;
-      const container = row.closest('tbody');
+      const container = row.closest('#existing-asset-container, #new-asset-container');
       if (!container) return;
       container.querySelectorAll(targetClassName).forEach(inp => inp.value = val);
       calculateTotals();
     });
   }
 
-  // --- 3. 行追加ヘルパー関数 ---
+  // --- 3. 行追加関数：既存アセット（Aset Lama）---
   function createExistingRowHtml(name = "", price = "", span = "") {
-    const tr = document.createElement('tr');
-    tr.className = 'existing-row';
-    tr.innerHTML = `
-      <td><input type="text" class="ex-name" placeholder="Nama Item Aset (Lama)" value="${name}"></td>
-      <td style="position: relative;">
-        <input type="number" class="ex-price" placeholder="0" value="${price}" style="padding-right: 22px; width: 100%; box-sizing: border-box;">
-        <i class="fa-solid fa-copy btn-copy-fast" style="position:absolute; right:8px; top:50%; transform:translateY(-50%); color:#94A3B8; cursor:pointer; font-size:0.75rem;" title="Copy ke semua aset"></i>
-      </td>
-      <td><input type="number" class="ex-span" placeholder="0" value="${span}"></td>
-      <td><input type="text" class="ex-reserve-needed" placeholder="Rp 0" readonly></td>
-      <td class="spacer-width">
-        <button type="button" class="btn-table-action btn-delete-row"><i class="fa-solid fa-trash-can"></i></button>
-      </td>
+    const div = document.createElement('div');
+    div.className = 'existing-row';
+    // 💡 flex-wrap: wrap を入れることで画面幅が狭い時に自動で折り返します
+    div.style.cssText = "display: flex; flex-wrap: wrap; gap: 8px; align-items: center; width: 100%; background: #F8FAFC; padding: 10px; border-radius: 10px; border: 1px solid #CBD5E1; box-sizing: border-box;";
+    
+    div.innerHTML = `
+      <div style="flex: 1; min-width: 150px;">
+        <input type="text" class="ex-name" placeholder="Nama Item Aset (Lama)" value="${name}" style="width:100%; padding:6px 8px; font-size:0.85rem; height:32px; border-radius:6px; border:1px solid #CBD5E1; background:#fff; box-sizing:border-box;">
+      </div>
+      <div style="width: 110px; position: relative; flex-shrink: 0;">
+        <span style="position: absolute; left: 6px; top: 50%; transform: translateY(-50%); color: #94A3B8; font-size: 0.75rem;">Rp</span>
+        <input type="number" class="ex-price" placeholder="Harga" value="${price}" style="width: 100%; padding: 6px 20px 6px 24px; font-size: 0.85rem; height:32px; border-radius: 6px; border: 1px solid #CBD5E1; background:#fff; box-sizing:border-box;">
+        <i class="fa-solid fa-copy btn-copy-fast" style="position:absolute; right:6px; top:50%; transform:translateY(-50%); color:#94A3B8; cursor:pointer; font-size:0.7rem;" title="Copy ke semua"></i>
+      </div>
+      <div style="width: 75px; flex-shrink: 0; position: relative;">
+        <input type="number" class="ex-span" placeholder="Sisa Bln" value="${span}" style="width: 100%; padding: 6px 4px; font-size: 0.85rem; height:32px; border-radius: 6px; border: 1px solid #CBD5E1; background:#fff; text-align: center; box-sizing:border-box;" title="Sisa Masa Pakai (Bulan)">
+      </div>
+      <div style="width: 100px; flex-shrink: 0;">
+        <input type="text" class="ex-reserve-needed" placeholder="Rp 0" readonly style="width: 100%; padding: 6px 4px; font-size: 0.8rem; height:32px; border-radius: 6px; border: 1px solid #CBD5E1; background:#E2E8F0; color:#475569; text-align: center; font-weight: bold; box-sizing:border-box;" title="Simpanan per Bulan">
+      </div>
+      <div style="width: 24px; flex-shrink: 0; text-align: center;">
+        <button type="button" class="btn-table-action btn-delete-row" style="background:none; border:none; color:#EF4444; cursor:pointer; padding:0; width:24px; height:24px; display:inline-flex; align-items:center; justify-content:center;">
+          <i class="fa-solid fa-trash-can" style="font-size:0.85rem;"></i>
+        </button>
+      </div>
     `;
-    existingContainer.appendChild(tr);
-    attachAssetCopyFeature(tr, '.ex-price');
+    existingContainer.appendChild(div);
+    attachAssetCopyFeature(div, '.ex-price');
   }
 
+  // --- 4. 行追加関数：新規アセット（Aset Baru）---
   function createNewRowHtml(name = "", price = "", shopMonth = "1", span = "") {
-    const tr = document.createElement('tr');
-    tr.className = 'new-row';
-    tr.innerHTML = `
-      <td><input type="text" class="new-name" placeholder="Nama Komponen Aset Baru" value="${name}"></td>
-      <td style="position: relative;">
-        <input type="number" class="new-price" placeholder="0" value="${price}" style="padding-right: 22px; width: 100%; box-sizing: border-box;">
-        <i class="fa-solid fa-copy btn-copy-fast" style="position:absolute; right:8px; top:50%; transform:translateY(-50%); color:#94A3B8; cursor:pointer; font-size:0.75rem;" title="Copy ke semua aset"></i>
-      </td>
-      <td><input type="number" class="new-month" placeholder="1" min="1" value="${shopMonth}"></td>
-      <td><input type="number" class="inv-span" placeholder="0" value="${span}"></td>
-      <td><input type="text" class="new-reserve-needed" placeholder="Rp 0" readonly></td>
-      <td class="spacer-width">
-        <button type="button" class="btn-table-action btn-delete-row"><i class="fa-solid fa-trash-can"></i></button>
-      </td>
+    const div = document.createElement('div');
+    div.className = 'new-row';
+    div.style.cssText = "display: flex; flex-wrap: wrap; gap: 8px; align-items: center; width: 100%; background: #F8FAFC; padding: 10px; border-radius: 10px; border: 1px solid #CBD5E1; box-sizing: border-box;";
+
+    div.innerHTML = `
+      <div style="flex: 1; min-width: 150px;">
+        <input type="text" class="new-name" placeholder="Nama Komponen Aset Baru" value="${name}" style="width:100%; padding:6px 8px; font-size:0.85rem; height:32px; border-radius:6px; border:1px solid #CBD5E1; background:#fff; box-sizing:border-box;">
+      </div>
+      <div style="width: 110px; position: relative; flex-shrink: 0;">
+        <span style="position: absolute; left: 6px; top: 50%; transform: translateY(-50%); color: #94A3B8; font-size: 0.75rem;">Rp</span>
+        <input type="number" class="new-price" placeholder="Harga" value="${price}" style="width: 100%; padding: 6px 20px 6px 24px; font-size: 0.85rem; height:32px; border-radius: 6px; border: 1px solid #CBD5E1; background:#fff; box-sizing:border-box;">
+        <i class="fa-solid fa-copy btn-copy-fast" style="position:absolute; right:6px; top:50%; transform:translateY(-50%); color:#94A3B8; cursor:pointer; font-size:0.7rem;" title="Copy ke semua"></i>
+      </div>
+      <div style="width: 55px; flex-shrink: 0;">
+        <input type="number" class="new-month" placeholder="Beli" min="1" value="${shopMonth}" style="width: 100%; padding: 6px 2px; font-size: 0.85rem; height:32px; border-radius: 6px; border: 1px solid #CBD5E1; background:#fff; text-align: center; box-sizing:border-box;" title="Bulan Belanja Ke-berapa">
+      </div>
+      <div style="width: 55px; flex-shrink: 0;">
+        <input type="number" class="inv-span" placeholder="Pakai" value="${span}" style="width: 100%; padding: 6px 2px; font-size: 0.85rem; height:32px; border-radius: 6px; border: 1px solid #CBD5E1; background:#fff; text-align: center; box-sizing:border-box;" title="Masa Pakai Baru (Bulan)">
+      </div>
+      <div style="width: 100px; flex-shrink: 0;">
+        <input type="text" class="new-reserve-needed" placeholder="Rp 0" readonly style="width: 100%; padding: 6px 4px; font-size: 0.8rem; height:32px; border-radius: 6px; border: 1px solid #CBD5E1; background:#E2E8F0; color:#475569; text-align: center; font-weight: bold; box-sizing:border-box;" title="Simpanan per Bulan">
+      </div>
+      <div style="width: 24px; flex-shrink: 0; text-align: center;">
+        <button type="button" class="btn-table-action btn-delete-row" style="background:none; border:none; color:#EF4444; cursor:pointer; padding:0; width:24px; height:24px; display:inline-flex; align-items:center; justify-content:center;">
+          <i class="fa-solid fa-trash-can" style="font-size:0.85rem;"></i>
+        </button>
+      </div>
     `;
-    newAssetContainer.appendChild(tr);
-    attachAssetCopyFeature(tr, '.new-price');
+    newAssetContainer.appendChild(div);
+    attachAssetCopyFeature(div, '.new-price');
   }
 
-  // --- 4. 初期ロード時のデータ復元展開 ---
+  // --- 5. 初期ロード時のデータ復元展開 ---
   if (nameInput) nameInput.value = localStorage.getItem('sim-user-name') || "";
   if (startDateInput) startDateInput.value = localStorage.getItem('sim-start-date') || "2026-04-01";
   if (fundSourceInput) fundSourceInput.value = localStorage.getItem('fund-source-amount') || "";
@@ -138,7 +165,7 @@ document.addEventListener("DOMContentLoaded", function() {
     createNewRowHtml();
   }
 
-  // --- 5. 監視設定 ---
+  // --- 6. イベント監視 ---
   [nameInput, startDateInput, fundSourceInput, salaryInput].forEach(inp => {
     if (inp) inp.addEventListener('input', saveAllToStorage);
   });
@@ -148,9 +175,16 @@ document.addEventListener("DOMContentLoaded", function() {
   if (btnAddExisting) btnAddExisting.addEventListener('click', () => { createExistingRowHtml(); calculateTotals(); });
   if (btnAddNewAsset) btnAddNewAsset.addEventListener('click', () => { createNewRowHtml(); calculateTotals(); });
 
+  // 削除イベントの委譲
   document.body.addEventListener('click', (e) => {
     const deleteBtn = e.target.closest('.btn-delete-row');
-    if (deleteBtn) { const row = deleteBtn.closest('tr'); if (row) { row.remove(); calculateTotals(); } }
+    if (deleteBtn) {
+      const row = deleteBtn.closest('.existing-row, .new-row');
+      if (row) {
+        row.remove();
+        calculateTotals();
+      }
+    }
   });
 
   calculateTotals();
