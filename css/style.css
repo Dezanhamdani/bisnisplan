@@ -347,7 +347,7 @@ footer p {
   }
 
   .header-logo {
-    height: 40px !important; /* スマホ向けにロゴを少し小ぶりに */
+    height: 40px !important;
   }
 
   .header-main-title {
@@ -362,14 +362,14 @@ footer p {
   .header-actions {
     width: 100% !important;
     display: flex !important;
-    flex-direction: row !important; /* 絶対に横並び */
+    flex-direction: row !important;
     justify-content: center !important;
     gap: 8px !important;
   }
   
   .btn {
     flex: 1 !important;
-    min-width: 0 !important; /* 画面幅が狭くてもはみ出さないように制限を解除 */
+    min-width: 0 !important;
     padding: 8px 4px !important;
     font-size: 0.7rem !important;
     text-align: center !important;
@@ -382,18 +382,18 @@ footer p {
     width: 100% !important;
     height: auto !important;
     padding: 8px 12px !important;
-    overflow-x: auto !important; /* はみ出た要素を横スクロール化 */
-    white-space: nowrap !important; /* 子要素の自動改行をストップ */
-    -webkit-overflow-scrolling: touch !important; /* スムーズなスクロー感 */
+    overflow-x: auto !important;
+    white-space: nowrap !important;
+    -webkit-overflow-scrolling: touch !important;
     background-color: #FFFFFF !important;
   }
 
   .nav-list {
     display: flex !important;
     flex-direction: row !important;
-    justify-content: flex-start !important; /* 左詰めで並べる */
+    justify-content: flex-start !important;
     gap: 6px !important;
-    width: max-content !important; /* リスト全体の幅を中身に合わせる */
+    width: max-content !important;
   }
 
   .nav-list li {
@@ -410,6 +410,38 @@ footer p {
   .tab-header h2 { font-size: 1.25rem !important; }
   .main-container { margin: 20px auto !important; padding: 0 12px !important; }
   .sheet-section { padding: 24px 16px !important; border-radius: 16px !important; }
+  
+  /* 左右の無駄な巨大余白(16px)を半分(8px)に削って、文字が見える領域を最大化！ */
+  .input-group input[type="text"],
+  .input-group input[type="number"],
+  .input-group input[type="url"],
+  .input-group input[type="date"],
+  .input-group textarea,
+  .invest-table input,
+  .calendar-table input,
+  .item-name,
+  .item-amount,
+  .month-input {
+    padding: 6px 8px !important; 
+    font-size: 0.85rem !important; 
+    height: 32px !important; /* 高さを少しスマートにして縦の圧迫感をクリア */
+  }
+
+  /* マトリクス表内の「Rp」の文字やコピーアイコンの位置調整 */
+  .input-group span,
+  .invest-table span,
+  div[style*="position: relative"] span {
+    font-size: 0.75rem !important;
+    left: 4px !important;
+  }
+
+  /* インライン化したプラス・ゴミ箱ボタンが文字入力欄を圧迫しすぎないように微調整 */
+  .btn-add-inline,
+  .btn-table-action {
+    width: 24px !important;
+    height: 24px !important;
+    min-width: 24px !important;
+  }
 }
 
 /* ==========================================
