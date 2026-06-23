@@ -12,18 +12,24 @@
   width: 100%;
   border-collapse: collapse;
   text-align: left;
+  table-layout: fixed; /* 列幅を固定して完全に揃えるための重要な設定 */
 }
 
 .invest-table th,
 .invest-table td {
   padding: 10px 8px;
   vertical-align: middle;
+  box-sizing: border-box;
 }
 
-.invest-table .col-price { width: 180px; }
-.invest-table .col-month { width: 140px; }
-.invest-table .col-span  { width: 140px; }
-.invest-table .col-reserve-calc { width: 180px; }
+/* ------------------------------------------
+   【横幅の統一設定】合計で幅をピタッと合わせます
+   ------------------------------------------ */
+.invest-table .col-price        { width: 180px; } /* 価格列 */
+.invest-table .col-month        { width: 110px; } /* 2-1:Sisa / 2-2:Beli 列 */
+.invest-table .col-span         { width: 110px; } /* 2-2:Masa Pakai 列 */
+.invest-table .col-reserve-calc { width: 180px; } /* Simpanan（計算結果）列 */
+.invest-table .col-action       { width: 45px;  } /* ゴミ箱ボタン列 */
 
 .sub-asset-section {
   width: 100%;
@@ -101,12 +107,12 @@
    ========================================================================== */
 #sim-start-date {
   width: 100% !important;
-  height: 100% !important;               /* 親要素（38px）の高さいっぱいに広げる */
-  padding: 6px 12px !important;           /* 右側とパディングを統一 */
+  height: 100% !important;
+  padding: 6px 12px !important;
   font-size: 0.85rem !important;
   border: 1px solid #CBD5E1 !important;
-  border-radius: 4px !important;          /* 他の初期入力欄と同じ角丸（4px）にする */
-  background-color: #FFFFFF !important;   /* 背景色を白で統一 */
+  border-radius: 4px !important;
+  background-color: #FFFFFF !important;
   color: #0F172A !important;
   font-family: inherit !important;
   box-sizing: border-box !important;
@@ -114,14 +120,12 @@
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* カレンダーフォーカス時のアニメーションを共通の青枠に統一 */
 #sim-start-date:focus {
   background-color: #FFFFFF !important;
   border-color: #3B82F6 !important;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15) !important;
 }
 
-/* スマホ表示（幅768px以下）の時のサイズ微調整 */
 @media (max-width: 768px) {
   #sim-start-date {
     padding: 6px 8px !important;
@@ -130,7 +134,7 @@
 }
 
 /* ==========================================================================
-   テーブル内パーツ用 追加スタイル設定（インラインCSS排除化）
+   テーブル内パーツ用 追加スタイル設定
    ========================================================================== */
 .invest-table td input {
   width: 100%;
