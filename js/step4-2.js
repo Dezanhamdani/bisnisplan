@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
-  // --- 3. 行追加関数：既存アセット（Aset Lama）---
+  // --- 3. 行追加関数：既存アセット（Aset Lama） ---
   function createExistingRowHtml(name = "", price = "", span = "") {
     const tr = document.createElement('tr');
     tr.className = 'existing-row';
@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function() {
     attachAssetCopyFeature(tr, '.ex-price');
   }
 
-  // --- 4. 行追加関数：新規アセット（Aset Baru）---
+  // --- 4. 行追加関数：新規アセット（Aset Baru） ---
   function createNewRowHtml(name = "", price = "", shopMonth = "1", span = "") {
     const tr = document.createElement('tr');
     tr.className = 'new-row';
@@ -146,12 +146,11 @@ document.addEventListener("DOMContentLoaded", function() {
     createNewRowHtml();
   }
 
-  // --- 6. イベント監視（バブリングによる効率化） ---
+  // --- 6. イベント監視（バブリング活用） ---
   [nameInput, startDateInput, fundSourceInput, salaryInput].forEach(inp => {
     if (inp) inp.addEventListener('input', saveAllToStorage);
   });
 
-  // 個別の行ではなくコンテナ全体で入力を1回だけ監視（書き足しを防止）
   existingContainer.addEventListener('input', calculateTotals);
   newAssetContainer.addEventListener('input', calculateTotals);
 
