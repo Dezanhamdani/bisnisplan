@@ -19,9 +19,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // === 2. Core Logic for Calendar Table Matrix ===
   function setupCalendarEngine({ containerId, buttonId, storageKey, isExpense = false }) {
     const container = document.getElementById(containerId);
+    // 古い外部ボタンがHTMLに残っていても動作するようにフォールバックを残します
     const btnAdd = document.getElementById(buttonId);
 
-    if (!container || !btnAdd) return;
+    if (!container) return;
 
     // A. Recalculate Totals (Rows & Columns) and Save Matrix
     function calculateCalendar() {
@@ -31,7 +32,9 @@ document.addEventListener('DOMContentLoaded', () => {
       let grandRowAvgTotal = 0;
 
       rows.forEach(row => {
-        const name = row.querySelector('.item-name').value;
+        const nameInputEl = row.querySelector('.item-name');
+        if (!nameInputEl) return;
+        const name = nameInputEl.value;
         const monthInputs = row.querySelectorAll('.month-input');
         const monthsData = [];
         let rowSum = 0;
@@ -86,68 +89,78 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    // B. Inject Table Row Layout
+    // B. Inject Table Row Layout (4-3スタイルに統合)
     function createRow(name = '', monthsArray = [], isFirst = false) {
       const tr = document.createElement('tr');
       tr.className = 'calendar-dynamic-row';
 
-// 12か月分の入力セルを生成 (1月だけ特別なコピーボタン付きにするため分けてループ)
-const janVal = monthsArray[0] !== undefined ? monthsArray[0] : '';
-      
-      // ★ border:none に変更し、枠線を完全に無くしました
+      // 12か月分の入力セル
+      const janVal = monthsArray[0] !== undefined ? monthsArray[0] : '';
       let monthCellsHtml = `
         <td>
           <div style="display: flex; align-items: center; gap: 4px; min-width: 105px;">
             <input type="number" class="month-input jan-input" placeholder="0" min="0" value="${janVal}" style="width:65px; padding:6px; font-size:0.85rem; border-radius:4px; border:1px solid #cbd5e1;">
-            <button type="button" class="btn-copy-all" title="Salin ke semua bulan (全月にコピー)" style="background:#FFFFFF; color:#64748B; border:none; padding:6px; border-radius:50%; cursor:pointer; font-size:0.95rem; display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; transition: all 0.2s ease;">
+            <button type="button" class="btn-copy-all" title="Salin ke semua bulan" style="background:#FFFFFF; color:#64748B; border:none; padding:6px; border-radius:50%; cursor:pointer; font-size:0.95rem; display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; transition: all 0.2s ease;">
               <i class="fa-regular fa-copy"></i>
             </button>
           </div>
         </td>
       `;
 
-      // 2月〜12月のセル
       for (let i = 1; i < 12; i++) {
         const val = monthsArray[i] !== undefined ? monthsArray[i] : '';
         monthCellsHtml += `<td><input type="number" class="month-input" placeholder="0" min="0" value="${val}" style="width:65px; padding:6px; font-size:0.85rem; border-radius:4px; border:1px solid #cbd5e1;"></td>`;
       }
 
-      // ★ゴミ箱マークを名前入力欄の右隣（同じマスの中）に引っ越しました
+      // 💡 1行目なら「プラスボタン」、2行目以降なら「ゴミ箱ボタン」を Nama item の右隣にインライン配置
+      const actionBtnHtml = isFirst ? `
+        <button type="button" class="btn-add-inline btn-add-row-trigger" title="Tambah Item" style="background:#475569; border:none; color:#fff; border-radius:4px; width:26px; height:26px; min-width:26px; display:inline-flex; align-items:center; justify-content:center; font-size:0.75rem; cursor:pointer;">
+          <i class="fa-solid fa-plus"></i>
+        </button>
+      ` : `
+        <button type="button" class="btn-table-action" style="background:none; border:none; color:#EF4444; width:26px; height:26px; min-width:26px; display:inline-flex; align-items:center; justify-content:center; cursor:pointer;">
+          <i class="fa-solid fa-trash" style="font-size:0.85rem;"></i>
+        </button>
+      `;
+
       tr.innerHTML = `
         <td>
-          <div style="display: flex; align-items: center; gap: 8px; min-width: 240px;">
-            <input type="text" class="item-name" placeholder="${isExpense ? 'Nama item' : 'Nama item'}" value="${name}" style="flex: 1; padding:8px; border-radius:6px; border:1px solid #cbd5e1;">
-            ${isFirst ? `
-              <div class="spacer-width" style="width: 34px;"></div>
-            ` : `
-              <button type="button" class="btn-table-action" style="width:34px; min-width:34px;">
-                <i class="fa-solid fa-trash"></i>
-              </button>
-            `}
+          <div style="display: flex; align-items: center; gap: 6px; min-width: 240px;">
+            <input type="text" class="item-name" placeholder="Nama item" value="${name}" style="flex: 1; padding:8px; border-radius:6px; border:1px solid #cbd5e1; font-size:0.85rem;">
+            ${actionBtnHtml}
           </div>
         </td>
-        <td class="readonly-total row-avg-display" style="font-weight: bold; color: #475569;">Rp 0</td>
+        <td class="readonly-total row-avg-display" style="font-weight: bold; color: #475569; font-size:0.85rem;">Rp 0</td>
         ${monthCellsHtml}
       `;
 
       container.appendChild(tr);
 
-      // コピペボタンの動作イベント追加
+      // 行追加イベント（インラインプラスボタン用）
+      if (isFirst) {
+        tr.querySelector('.btn-add-row-trigger').addEventListener('click', () => {
+          createRow('', [], false);
+          calculateCalendar();
+        });
+      }
+
+      // コピペボタンのイベント
       tr.querySelector('.btn-copy-all').addEventListener('click', () => {
         const janValue = tr.querySelector('.jan-input').value;
         const allInputs = tr.querySelectorAll('.month-input');
         allInputs.forEach(input => {
-          input.value = janValue; // 1月の値をすべての月に上書き
+          input.value = janValue;
         });
-        calculateCalendar(); // 合計値を再計算
+        calculateCalendar();
       });
 
-      // 通常の入力監視イベント
+      // 入力監視
       tr.querySelector('.item-name').addEventListener('input', calculateCalendar);
       tr.querySelectorAll('.month-input').forEach(input => {
         input.addEventListener('input', calculateCalendar);
       });
 
+      // 削除イベント
       if (!isFirst) {
         tr.querySelector('.btn-table-action').addEventListener('click', () => {
           tr.remove();
@@ -172,11 +185,13 @@ const janVal = monthsArray[0] !== undefined ? monthsArray[0] : '';
     }
     calculateCalendar();
 
-    // D. Add Button Event
-    btnAdd.addEventListener('click', () => {
-      createRow('', [], false);
-      calculateCalendar();
-    });
+    // D. Old Button Event Fallback (HTMLに残っている場合用)
+    if (btnAdd) {
+      btnAdd.addEventListener('click', () => {
+        createRow('', [], false);
+        calculateCalendar();
+      });
+    }
   }
 
   // === 3. Run Calendar Engine for Income and Expense Sections ===
