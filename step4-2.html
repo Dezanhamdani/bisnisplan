@@ -1,58 +1,135 @@
-<div class="asset-simulation-wrapper">
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tahap 4-2 : Perencanaan Sarana Investasi</title> 
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
 
-  <div class="sub-asset-section" style="margin-bottom: 30px;">
-    <h4>2-1. Aset yang Sudah Dimiliki</h4>
-    <p class="field-desc-sub">Hitung cadangan berdasarkan perkiraan sisa masa pakai alat (Sisa Umur Alat) hingga waktu pembaruan tiba.</p>
-    
-    <div class="table-scroll-container">
-      <table class="invest-table">
-        <thead>
-          <tr>
-            <th><i class="fa-solid fa-tag"></i> Nama Item Aset</th>
-            <th class="col-price"><i class="fa-solid fa-money-bill-wave"></i> Harga</th>
-            <th class="col-month" style="text-align: center;"><i class="fa-solid fa-hourglass-half"></i> Sisa Bln</th>
-            <th class="col-reserve-calc" style="text-align: center;"><i class="fa-solid fa-calculator"></i> Simpanan</th>
-            <th style="width: 40px;"></th>
-          </tr>
-        </thead>
-        <tbody id="existing-asset-container">
-          </tbody>
-      </table>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/step4-2.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+  <div id="header-container"></div>
+
+  <main class="main-container">
+    <div class="sheet-section" id="section-4-2">
+      
+      <div class="tab-header">
+        <h2>Tahap 4-2 : Perencanaan Sarana Investasi & Tabungan Pembaruan</h2>
+        <p>Masukkan rencana modal awal, target gaji, dan pengaturan aset untuk menghitung dana cadangan secara otomatis.</p>
+      </div>
+
+      <div class="profile-block">
+        <div class="input-group">
+          <label for="name">
+            <i class="fa-solid fa-user"></i> Nama Pemagang
+          </label>
+          <input type="text" id="name" placeholder="Masukkan nama lengkap Anda">
+        </div>
+      </div>
+
+      <div class="finance-block income-block">
+        <h3><i class="fa-solid fa-sliders"></i> 1. Pengaturan Dasar Bisnis (Setup Dasar)</h3>
+        <p class="field-desc">Masukkan informasi waktu mulai, modal awal, and target gaji bulanan Anda.</p>
+        
+        <div class="form-grid-optimized">
+          
+          <div class="input-group-half">
+            <label for="sim-start-date"><i class="fa-solid fa-calendar-days"></i> Kapan Mulai Bisnis? (Bulan Ke-1)</label>
+            <div style="width: 100%; height: 38px;">
+              <input type="month" id="sim-start-date" value="2026-04">
+            </div>
+          </div>
+
+          <div class="input-group-half">
+            <label for="fund-source-amount"><i class="fa-solid fa-wallet"></i> Modal Usaha Awal (Bulan Ke-1)</label>
+            <div style="position: relative; width: 100%; height: 38px; box-sizing: border-box;">
+              <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #94A3B8; font-size: 0.85rem; font-weight: bold; pointer-events: none;">Rp</span>
+              <input type="number" id="fund-source-amount" placeholder="0" style="width: 100%; height: 100%; padding: 6px 12px 6px 36px; font-size: 0.85rem; border-radius: 4px; border: 1px solid #CBD5E1; text-align: left; box-sizing: border-box; outline: none;">
+            </div>
+          </div>
+
+          <div class="input-group-half">
+            <label for="expected-salary-amount"><i class="fa-solid fa-hand-holding-dollar"></i> Biaya Hidup (Bulanan)</label>
+            <div style="position: relative; width: 100%; height: 38px; box-sizing: border-box;">
+              <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #94A3B8; font-size: 0.85rem; font-weight: bold; pointer-events: none;">Rp</span>
+              <input type="number" id="expected-salary-amount" placeholder="0" style="width: 100%; height: 100%; padding: 6px 12px 6px 36px; font-size: 0.85rem; border-radius: 4px; border: 1px solid #CBD5E1; text-align: left; box-sizing: border-box; outline: none;">
+            </div>
+          </div>
+          
+        </div>
+      </div>
+
+      <div class="finance-block reserve-block">
+        <h3><i class="fa-solid fa-cubes"></i> 2. Perencanaan Sarana Investasi & Tabungan Pembaruan</h3>
+        <p class="field-desc">Daftarkan seluruh aset bisnis Anda. Sistem akan menghitung otomatis simpanan bulanan agar saat alat rusak, dana buying-back sudah siap.</p>
+
+        <div class="sub-asset-section" style="margin-bottom: 30px;">
+          <h4>2-1. Aset yang Sudah Dimiliki</h4>
+          <p class="field-desc-sub">Hitung cadangan berdasarkan perkiraan sisa masa pakai alat (Sisa Umur Alat) hingga waktu pembaruan tiba.</p>
+          
+          <div class="table-scroll-container">
+            <table class="invest-table">
+              <thead>
+                <tr>
+                  <th><i class="fa-solid fa-tag"></i> Nama Item Aset</th>
+                  <th class="col-price"><i class="fa-solid fa-money-bill-wave"></i> Harga</th>
+                  <th class="col-month" style="text-align: center;"><i class="fa-solid fa-hourglass-half"></i> Sisa Bln</th>
+                  <th class="col-reserve-calc" style="text-align: center;"><i class="fa-solid fa-calculator"></i> Simpanan</th>
+                  <th style="width: 40px;"></th>
+                </tr>
+              </thead>
+              <tbody id="existing-asset-container"></tbody>
+            </table>
+          </div>
+          
+          <div class="button-row-sub">
+            <button type="button" id="btn-add-existing" class="btn-add-small">
+              <i class="fa-solid fa-plus"></i> Tambah Aset Lama
+            </button>
+          </div>
+        </div>
+
+        <div class="sub-asset-section">
+          <h4>2-2. Perencanaan Sarana Investasi</h4>
+          <p class="field-desc-sub">Rencanakan dana untuk membeli alat baru di tengah jalan simulasi, dihitung sejak bulan pertama hingga target bulan belanja.</p>
+          
+          <div class="table-scroll-container">
+            <table class="invest-table">
+              <thead>
+                <tr>
+                  <th><i class="fa-solid fa-cart-plus"></i> Komponen Aset Baru</th>
+                  <th class="col-price"><i class="fa-solid fa-money-bill-wave"></i> Harga</th>
+                  <th class="col-span" style="text-align: center;"><i class="fa-solid fa-calendar-check"></i> Beli Bln</th>
+                  <th class="col-span" style="text-align: center;"><i class="fa-solid fa-clock"></i> Masa Pakai</th>
+                  <th class="col-reserve-calc" style="text-align: center;"><i class="fa-solid fa-calculator"></i> Simpanan</th>
+                  <th style="width: 40px;"></th>
+                </tr>
+              </thead>
+              <tbody id="new-asset-container"></tbody>
+            </table>
+          </div>
+          
+          <div class="button-row-sub">
+            <button type="button" id="btn-add-new-asset" class="btn-add-small">
+              <i class="fa-solid fa-plus"></i> Tambah Aset Baru
+            </button>
+          </div>
+        </div>
+
+      </div>
     </div>
+  </main>
 
-    <div class="button-row-sub">
-      <button type="button" id="btn-add-existing" class="btn-add-small">
-        <i class="fa-solid fa-plus"></i> Tambah Aset Lama
-      </button>
-    </div>
-  </div>
+  <div id="footer-container"></div>
 
-  <div class="sub-asset-section">
-    <h4>2-2. Perencanaan Sarana Investasi</h4>
-    <p class="field-desc-sub">Rencanakan dana untuk membeli alat baru di tengah jalan simulasi, dihitung sejak bulan pertama hingga target bulan belanja.</p>
-    
-    <div class="table-scroll-container">
-      <table class="invest-table">
-        <thead>
-          <tr>
-            <th><i class="fa-solid fa-cart-plus"></i> Komponen Aset Baru</th>
-            <th class="col-price"><i class="fa-solid fa-money-bill-wave"></i> Harga</th>
-            <th class="col-span" style="text-align: center;"><i class="fa-solid fa-calendar-check"></i> Beli Bln</th>
-            <th class="col-span" style="text-align: center;"><i class="fa-solid fa-clock"></i> Masa Pakai</th>
-            <th class="col-reserve-calc" style="text-align: center;"><i class="fa-solid fa-calculator"></i> Simpanan</th>
-            <th style="width: 40px;"></th>
-          </tr>
-        </thead>
-        <tbody id="new-asset-container">
-          </tbody>
-      </table>
-    </div>
-
-    <div class="button-row-sub">
-      <button type="button" id="btn-add-new-asset" class="btn-add-small">
-        <i class="fa-solid fa-plus"></i> Tambah Aset Baru
-      </button>
-    </div>
-  </div>
-
-</div>
+  <script src="js/header-route.js"></script>
+  <script src="js/step4-2.js"></script>
+</body>
+</html>
