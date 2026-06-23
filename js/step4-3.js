@@ -4,14 +4,11 @@ document.addEventListener("DOMContentLoaded", function() {
   const tbody = document.getElementById('calendar-body-rows');
   if (!headerRow || !tbody) return;
 
-  // --- 1. 初期データの読み込み ---
+ // --- 1. 初期データの読み込み ---
   const startSimDate = localStorage.getItem('sim-start-date') || "2026-04-01";
   const initialModal = parseFloat(localStorage.getItem('fund-source-amount')) || 0; 
+  const initialSalary = parseFloat(localStorage.getItem('upah-diharapkan')) || 0; 
   const assetPlans = JSON.parse(localStorage.getItem('invest-items') || "[]");
-
-  const [startYear, startMonth] = startSimDate.split('-').map(Number);
-  const monthNames = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"];
-  let komoditasCounter = 0, biayaCounter = 0;
 
   localStorage.removeItem('step4-3-dynamic-modal');
 
