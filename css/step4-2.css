@@ -11,7 +11,7 @@
   width: 100%;
   border-collapse: collapse;
   text-align: left;
-  table-layout: fixed; /* PCで列幅を完全に固定して1列目を綺麗に揃える */
+  table-layout: fixed; /* PCで列幅を完全に固定する */
 }
 
 .invest-table th,
@@ -22,13 +22,14 @@
 }
 
 /* ------------------------------------------
-   【PC用・横幅の統一設定】ミリ単位でピタッと揃います
+   【PC用・横幅の統一設定】
    ------------------------------------------ */
-.invest-table .col-price        { width: 170px; } /* 価格列 */
-.invest-table .col-month        { width: 110px; } /* Sisa / Beli 列 */
-.invest-table .col-span         { width: 110px; } /* Masa Pakai 列 */
-.invest-table .col-reserve-calc { width: 170px; } /* Simpanan 列 */
-.invest-table .col-action       { width: 50px;  } /* ゴミ箱ボタン列 */
+.invest-table .col-price        { width: 170px; } 
+.invest-table .col-month        { width: 110px; } 
+.invest-table .col-span         { width: 110px; } 
+.invest-table .col-reserve-calc { width: 170px; } 
+.invest-table .col-action       { width: 50px;  } 
+.invest-table .hidden-th        { display: none; }
 
 .sub-asset-section {
   width: 100%;
@@ -36,7 +37,9 @@
   padding-bottom: 16px;
   border-bottom: 1px dashed #E2E8F0;
 }
-
+.sub-asset-section.has-margin {
+  margin-bottom: 30px;
+}
 .sub-asset-section:last-of-type {
   border-bottom: none;
 }
@@ -95,6 +98,41 @@
   width: 100%;
 }
 
+/* ------------------------------------------
+   Setup Dasar用のインラインCSS分離クラス
+   ------------------------------------------ */
+.wrapper-date {
+  width: 100%;
+  height: 38px;
+}
+.wrapper-currency {
+  position: relative;
+  width: 100%;
+  height: 38px;
+  box-sizing: border-box;
+}
+.currency-prefix {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94A3B8;
+  font-size: 0.85rem;
+  font-weight: bold;
+  pointer-events: none;
+}
+.wrapper-currency input {
+  width: 100%;
+  height: 100%;
+  padding: 6px 12px 6px 36px;
+  font-size: 0.85rem;
+  border-radius: 4px;
+  border: 1px solid #CBD5E1;
+  text-align: left;
+  box-sizing: border-box;
+  outline: none;
+}
+
 /* ==========================================================================
    Setup Dasar: カレンダー入力欄（#sim-start-date）の最適化設定
    ========================================================================== */
@@ -112,7 +150,6 @@
   outline: none !important;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
-
 #sim-start-date:focus {
   background-color: #FFFFFF !important;
   border-color: #3B82F6 !important;
@@ -120,7 +157,7 @@
 }
 
 /* ==========================================================================
-   テーブル内パーツ用 追加スタイル設定（インラインCSSの共通化）
+   テーブル内パーツ用 スタイル設定
    ========================================================================== */
 .invest-table td input {
   width: 100%;
@@ -182,7 +219,7 @@
   justify-content: center;
 }
 
-/* 【重要】PC表示時は最初の1行目のゴミ箱ボタンを非表示 */
+/* 【重要】最初の1行目のゴミ箱ボタンを自動で非表示にするルール */
 #existing-asset-container tr:first-child .btn-delete-row,
 #new-asset-container tr:first-child .btn-delete-row {
   display: none !important;
@@ -201,29 +238,25 @@
     font-size: 0.85rem !important;
   }
 
-  /* テーブルの元々の表構造を強制解除 */
+  /* テーブルの構造を解除し、カードを並べるコンテナ化 */
   .invest-table {
     display: block;
     width: 100%;
   }
-
-  /* 上部の見出し行(thead)を完全に非表示 */
   .invest-table thead {
     display: none;
   }
-
-  /* 行を縦に並べるFlexboxコンテナ化 */
   .invest-table tbody {
     display: flex;
     flex-direction: column;
-    gap: 16px; /* カード同士の隙間 */
+    gap: 16px;
     width: 100%;
   }
 
-  /* 1本の「行(tr)」を独立したグレーの「カード」に変形 */
+  /* 行をカードに変形 */
   .invest-table tr {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* 基本項目は2列のグリッドで整列 */
+    grid-template-columns: 1fr 1fr;
     gap: 12px;
     padding: 16px;
     background: #F8FAFC;
@@ -234,7 +267,7 @@
     position: relative;
   }
 
-  /* 各セル(td)の内部をFlexboxで縦並び(ラベル+入力欄)にする */
+  /* 各入力枠を縦並びにする */
   .invest-table td {
     display: flex;
     flex-direction: column;
@@ -243,12 +276,12 @@
     width: 100% !important;
   }
 
-  /* 最初の列（アイテム名入力欄）だけはカードの横幅いっぱいに1枚で広げる */
+  /* アイテム名入力セルを横いっぱいに広げる */
   .invest-table td:first-child {
     grid-column: 1 / -1;
   }
 
-  /* 擬似要素を使ってスマホ専用の小さなラベル（見出し）を安全に強制挿入 */
+  /* 擬似要素でスマホ専用の小見出しを強制挿入 */
   .invest-table td::before {
     font-size: 0.75rem;
     font-weight: bold;
@@ -256,20 +289,20 @@
     margin-bottom: 4px;
   }
 
-  /* 2-1 (Aset Lama: 既存アセット) 用の見出しテキスト */
+  /* 2-1 ラベル */
   #existing-asset-container td:nth-child(1)::before { content: "Nama Item Aset"; }
   #existing-asset-container td:nth-child(2)::before { content: "Harga"; }
   #existing-asset-container td:nth-child(3)::before { content: "Sisa Bulan"; }
   #existing-asset-container td:nth-child(4)::before { content: "Simpanan Cadangan"; }
 
-  /* 2-2 (Aset Baru: 新規アセット) 用の見出しテキスト */
+  /* 2-2 ラベル */
   #new-asset-container td:nth-child(1)::before { content: "Komponen Aset Baru"; }
   #new-asset-container td:nth-child(2)::before { content: "Harga"; }
   #new-asset-container td:nth-child(3)::before { content: "Beli Bulan Ke-"; }
   #new-asset-container td:nth-child(4)::before { content: "Masa Pakai (Bln)"; }
   #new-asset-container td:nth-child(5)::before { content: "Simpanan Cadangan"; }
 
-  /* ゴミ箱ボタンのあるセルをカードの右上（絶対配置）へ安全に退避 */
+  /* ゴミ箱のセルをカードの右上に絶対配置 */
   .invest-table td.font-center:last-child {
     position: absolute;
     top: 12px;
@@ -278,10 +311,10 @@
     height: auto;
   }
   .invest-table td.font-center:last-child::before {
-    content: "" !important; /* ゴミ箱の上部には文字を付けない */
+    content: "" !important;
   }
 
-  /* カード型になっても、LocalStorageから復元されても、最初の1枚目カードからはゴミ箱を絶対に消す */
+  /* 1枚目カードからのゴミ箱非表示（スマホでも有効） */
   #existing-asset-container tr:first-child .btn-delete-row,
   #new-asset-container tr:first-child .btn-delete-row {
     display: none !important;
