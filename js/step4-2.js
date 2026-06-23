@@ -83,83 +83,68 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   // --- 3. 行追加関数：既存アセット（Aset Lama）---
-  // 💡 各入力フォームの上に項目名（ラベル）が表示される前の美しいデザインに最適化しました
+  // 💡 <tr> 要素を生成。テーブル（表）のセルに合わせて綺麗に入力欄だけを並べます
   function createExistingRowHtml(name = "", price = "", span = "") {
-    const div = document.createElement('div');
-    div.className = 'existing-row';
-    div.style.cssText = "display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; width: 100%; background: #F8FAFC; padding: 12px; margin-bottom: 12px; border-radius: 10px; border: 1px solid #CBD5E1; box-sizing: border-box;";
+    const tr = document.createElement('tr');
+    tr.className = 'existing-row';
     
-    div.innerHTML = `
-      <div style="flex: 2; min-width: 150px; display: flex; flex-direction: column; gap: 4px;">
-        <span style="font-size: 0.75rem; color: #64748B; font-weight: bold;"><i class="fa-solid fa-tag"></i> Nama Item Aset</span>
+    tr.innerHTML = `
+      <td>
         <input type="text" class="ex-name" placeholder="Nama Item Aset (Lama)" value="${name}" style="width:100%; padding:6px 8px; font-size:0.85rem; height:32px; border-radius:6px; border:1px solid #CBD5E1; background:#fff; box-sizing:border-box;">
-      </div>
-      <div style="flex: 1; min-width: 120px; position: relative; display: flex; flex-direction: column; gap: 4px;">
-        <span style="font-size: 0.75rem; color: #64748B; font-weight: bold;"><i class="fa-solid fa-money-bill-wave"></i> Harga</span>
-        <div style="position: relative; width: 100%;">
-          <span style="position: absolute; left: 6px; top: 50%; transform: translateY(-50%); color: #94A3B8; font-size: 0.75rem;">Rp</span>
-          <input type="number" class="ex-price" placeholder="Harga" value="${price}" style="width: 100%; padding: 6px 20px 6px 24px; font-size: 0.85rem; height:32px; border-radius: 6px; border: 1px solid #CBD5E1; background:#fff; box-sizing:border-box;">
-          <i class="fa-solid fa-copy btn-copy-fast" style="position:absolute; right:6px; top:50%; transform:translateY(-50%); color:#94A3B8; cursor:pointer; font-size:0.7rem;" title="Copy ke semua"></i>
-        </div>
-      </div>
-      <div style="width: 85px; flex-shrink: 0; display: flex; flex-direction: column; gap: 4px;">
-        <span style="font-size: 0.75rem; color: #64748B; font-weight: bold; text-align: center;"><i class="fa-solid fa-hourglass-half"></i> Sisa Bln</span>
-        <input type="number" class="ex-span" placeholder="Sisa Bln" value="${span}" style="width: 100%; padding: 6px 4px; font-size: 0.85rem; height:32px; border-radius: 6px; border: 1px solid #CBD5E1; background:#fff; text-align: center; box-sizing:border-box;" title="Sisa Masa Pakai (Bulan)">
-      </div>
-      <div style="width: 110px; flex-shrink: 0; display: flex; flex-direction: column; gap: 4px;">
-        <span style="font-size: 0.75rem; color: #64748B; font-weight: bold; text-align: center;"><i class="fa-solid fa-calculator"></i> Simpanan</span>
-        <input type="text" class="ex-reserve-needed" placeholder="Rp 0" readonly style="width: 100%; padding: 6px 4px; font-size: 0.8rem; height:32px; border-radius: 6px; border: 1px solid #CBD5E1; background:#E2E8F0; color:#475569; text-align: center; font-weight: bold; box-sizing:border-box;" title="Simpanan per Bulan">
-      </div>
-      <div style="width: 24px; flex-shrink: 0; text-align: center; margin-bottom: 4px;">
+      </td>
+      <td style="position: relative;">
+        <span style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #94A3B8; font-size: 0.75rem;">Rp</span>
+        <input type="number" class="ex-price" placeholder="Harga" value="${price}" style="width: 100%; padding: 6px 20px 6px 24px; font-size: 0.85rem; height:32px; border-radius: 6px; border: 1px solid #CBD5E1; background:#fff; box-sizing:border-box;">
+        <i class="fa-solid fa-copy btn-copy-fast" style="position:absolute; right:14px; top:50%; transform:translateY(-50%); color:#94A3B8; cursor:pointer; font-size:0.7rem;" title="Copy ke semua"></i>
+      </td>
+      <td>
+        <input type="number" class="ex-span" placeholder="Sisa" value="${span}" style="width: 100%; padding: 6px 4px; font-size: 0.85rem; height:32px; border-radius: 6px; border: 1px solid #CBD5E1; background:#fff; text-align: center; box-sizing:border-box;">
+      </td>
+      <td>
+        <input type="text" class="ex-reserve-needed" placeholder="Rp 0" readonly style="width: 100%; padding: 6px 4px; font-size: 0.8rem; height:32px; border-radius: 6px; border: 1px solid #CBD5E1; background:#E2E8F0; color:#475569; text-align: center; font-weight: bold; box-sizing:border-box;">
+      </td>
+      <td style="text-align: center;">
         <button type="button" class="btn-table-action btn-delete-row" style="background:none; border:none; color:#EF4444; cursor:pointer; padding:0; width:24px; height:24px; display:inline-flex; align-items:center; justify-content:center;">
           <i class="fa-solid fa-trash-can" style="font-size:0.85rem;"></i>
         </button>
-      </div>
+      </td>
     `;
-    existingContainer.appendChild(div);
-    attachAssetCopyFeature(div, '.ex-price');
+    existingContainer.appendChild(tr);
+    attachAssetCopyFeature(tr, '.ex-price');
   }
 
   // --- 4. 行追加関数：新規アセット（Aset Baru）---
-  // 💡 各入力フォームの上に項目名（ラベル）が表示される前の美しいデザインに最適化しました
+  // 💡 <tr> 要素を生成。テーブル（表）のセルに合わせて綺麗に入力欄だけを並べます
   function createNewRowHtml(name = "", price = "", shopMonth = "1", span = "") {
-    const div = document.createElement('div');
-    div.className = 'new-row';
-    div.style.cssText = "display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; width: 100%; background: #F8FAFC; padding: 12px; margin-bottom: 12px; border-radius: 10px; border: 1px solid #CBD5E1; box-sizing: border-box;";
+    const tr = document.createElement('tr');
+    tr.className = 'new-row';
 
-    div.innerHTML = `
-      <div style="flex: 2; min-width: 150px; display: flex; flex-direction: column; gap: 4px;">
-        <span style="font-size: 0.75rem; color: #64748B; font-weight: bold;"><i class="fa-solid fa-cart-plus"></i> Komponen Aset Baru</span>
+    tr.innerHTML = `
+      <td>
         <input type="text" class="new-name" placeholder="Nama Komponen Aset Baru" value="${name}" style="width:100%; padding:6px 8px; font-size:0.85rem; height:32px; border-radius:6px; border:1px solid #CBD5E1; background:#fff; box-sizing:border-box;">
-      </div>
-      <div style="flex: 1; min-width: 120px; position: relative; display: flex; flex-direction: column; gap: 4px;">
-        <span style="font-size: 0.75rem; color: #64748B; font-weight: bold;"><i class="fa-solid fa-money-bill-wave"></i> Harga</span>
-        <div style="position: relative; width: 100%;">
-          <span style="position: absolute; left: 6px; top: 50%; transform: translateY(-50%); color: #94A3B8; font-size: 0.75rem;">Rp</span>
-          <input type="number" class="new-price" placeholder="Harga" value="${price}" style="width: 100%; padding: 6px 20px 6px 24px; font-size: 0.85rem; height:32px; border-radius: 6px; border: 1px solid #CBD5E1; background:#fff; box-sizing:border-box;">
-          <i class="fa-solid fa-copy btn-copy-fast" style="position:absolute; right:6px; top:50%; transform:translateY(-50%); color:#94A3B8; cursor:pointer; font-size:0.7rem;" title="Copy ke semua"></i>
-        </div>
-      </div>
-      <div style="width: 65px; flex-shrink: 0; display: flex; flex-direction: column; gap: 4px;">
-        <span style="font-size: 0.75rem; color: #64748B; font-weight: bold; text-align: center;"><i class="fa-solid fa-calendar-check"></i> Beli Bln</span>
-        <input type="number" class="new-month" placeholder="Beli" min="1" value="${shopMonth}" style="width: 100%; padding: 6px 2px; font-size: 0.85rem; height:32px; border-radius: 6px; border: 1px solid #CBD5E1; background:#fff; text-align: center; box-sizing:border-box;" title="Bulan Belanja Ke-berapa">
-      </div>
-      <div style="width: 65px; flex-shrink: 0; display: flex; flex-direction: column; gap: 4px;">
-        <span style="font-size: 0.75rem; color: #64748B; font-weight: bold; text-align: center;"><i class="fa-solid fa-clock"></i> Masa Pakai</span>
-        <input type="number" class="inv-span" placeholder="Pakai" value="${span}" style="width: 100%; padding: 6px 2px; font-size: 0.85rem; height:32px; border-radius: 6px; border: 1px solid #CBD5E1; background:#fff; text-align: center; box-sizing:border-box;" title="Masa Pakai Baru (Bulan)">
-      </div>
-      <div style="width: 110px; flex-shrink: 0; display: flex; flex-direction: column; gap: 4px;">
-        <span style="font-size: 0.75rem; color: #64748B; font-weight: bold; text-align: center;"><i class="fa-solid fa-calculator"></i> Simpanan</span>
-        <input type="text" class="new-reserve-needed" placeholder="Rp 0" readonly style="width: 100%; padding: 6px 4px; font-size: 0.8rem; height:32px; border-radius: 6px; border: 1px solid #CBD5E1; background:#E2E8F0; color:#475569; text-align: center; font-weight: bold; box-sizing:border-box;" title="Simpanan per Bulan">
-      </div>
-      <div style="width: 24px; flex-shrink: 0; text-align: center; margin-bottom: 4px;">
+      </td>
+      <td style="position: relative;">
+        <span style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #94A3B8; font-size: 0.75rem;">Rp</span>
+        <input type="number" class="new-price" placeholder="Harga" value="${price}" style="width: 100%; padding: 6px 20px 6px 24px; font-size: 0.85rem; height:32px; border-radius: 6px; border: 1px solid #CBD5E1; background:#fff; box-sizing:border-box;">
+        <i class="fa-solid fa-copy btn-copy-fast" style="position:absolute; right:14px; top:50%; transform:translateY(-50%); color:#94A3B8; cursor:pointer; font-size:0.7rem;" title="Copy ke semua"></i>
+      </td>
+      <td>
+        <input type="number" class="new-month" placeholder="Beli" min="1" value="${shopMonth}" style="width: 100%; padding: 6px 2px; font-size: 0.85rem; height:32px; border-radius: 6px; border: 1px solid #CBD5E1; background:#fff; text-align: center; box-sizing:border-box;">
+      </td>
+      <td>
+        <input type="number" class="inv-span" placeholder="Pakai" value="${span}" style="width: 100%; padding: 6px 2px; font-size: 0.85rem; height:32px; border-radius: 6px; border: 1px solid #CBD5E1; background:#fff; text-align: center; box-sizing:border-box;">
+      </td>
+      <td>
+        <input type="text" class="new-reserve-needed" placeholder="Rp 0" readonly style="width: 100%; padding: 6px 4px; font-size: 0.8rem; height:32px; border-radius: 6px; border: 1px solid #CBD5E1; background:#E2E8F0; color:#475569; text-align: center; font-weight: bold; box-sizing:border-box;">
+      </td>
+      <td style="text-align: center;">
         <button type="button" class="btn-table-action btn-delete-row" style="background:none; border:none; color:#EF4444; cursor:pointer; padding:0; width:24px; height:24px; display:inline-flex; align-items:center; justify-content:center;">
           <i class="fa-solid fa-trash-can" style="font-size:0.85rem;"></i>
         </button>
-      </div>
+      </td>
     `;
-    newAssetContainer.appendChild(div);
-    attachAssetCopyFeature(div, '.new-price');
+    newAssetContainer.appendChild(tr);
+    attachAssetCopyFeature(tr, '.new-price');
   }
 
   // --- 5. 初期ロード時のデータ復元展開 ---
