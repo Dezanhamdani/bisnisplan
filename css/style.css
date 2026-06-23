@@ -327,25 +327,89 @@ footer p {
    6. Responsive (スマホ用設定)
    ========================================== */
 @media (max-width: 768px) {
-  .header-top {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
+  /* ① ヘッダーを縦並びにして要素の衝突を防ぐ */
+  .common-header {
+    padding: 12px 16px !important;
+    height: auto !important;
   }
-  
+
+  .header-top {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 12px !important;
+  }
+
+  .header-left {
+    flex-direction: column !important;
+    gap: 8px !important;
+    text-align: center !important;
+    width: 100% !important;
+  }
+
+  .header-logo {
+    height: 40px !important; /* スマホ向けにロゴを少し小ぶりに */
+  }
+
+  .header-main-title {
+    font-size: 1.1rem !important;
+  }
+
+  .header-sub-title {
+    margin-top: 4px !important;
+  }
+
+  /* ② 右上の3つのボタン群をロゴの下へ綺麗に横並び配置 */
   .header-actions {
-    width: 100%;
-    flex-wrap: wrap;
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: row !important; /* 絶対に横並び */
+    justify-content: center !important;
+    gap: 8px !important;
   }
   
   .btn {
-    flex: 1;
-    min-width: 90px;
-    text-align: center;
+    flex: 1 !important;
+    min-width: 0 !important; /* 画面幅が狭くてもはみ出さないように制限を解除 */
+    padding: 8px 4px !important;
+    font-size: 0.7rem !important;
+    text-align: center !important;
+    border-radius: 0.5rem !important;
   }
-  
-  .tab-header { padding: 16px; }
-  .tab-header h2 { font-size: 1.25rem; }
+
+  /* ③ 1〜10のステップナビを絶対に隠さず、指で左右スライド（横スクロール）可能にする */
+  .step-nav {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    padding: 8px 12px !important;
+    overflow-x: auto !important; /* はみ出た要素を横スクロール化 */
+    white-space: nowrap !important; /* 子要素の自動改行をストップ */
+    -webkit-overflow-scrolling: touch !important; /* スムーズなスクロー感 */
+    background-color: #FFFFFF !important;
+  }
+
+  .nav-list {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: flex-start !important; /* 左詰めで並べる */
+    gap: 6px !important;
+    width: max-content !important; /* リスト全体の幅を中身に合わせる */
+  }
+
+  .nav-list li {
+    flex-shrink: 0 !important; 
+  }
+
+  .nav-link {
+    padding: 6px 14px !important;
+    font-size: 0.75rem !important;
+  }
+
+  /* その他全体レイアウトのスマホ調整 */
+  .tab-header { padding: 16px !important; }
+  .tab-header h2 { font-size: 1.25rem !important; }
+  .main-container { margin: 20px auto !important; padding: 0 12px !important; }
+  .sheet-section { padding: 24px 16px !important; border-radius: 16px !important; }
 }
 
 /* ==========================================
