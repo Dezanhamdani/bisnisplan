@@ -424,7 +424,7 @@ footer p {
   .month-input {
     padding: 6px 8px !important; 
     font-size: 0.85rem !important; 
-    height: 32px !important; /* 高さを少しスマートにして縦の圧迫感をクリア */
+    height: 32px !important;
   }
 
   /* マトリクス表内の「Rp」の文字やコピーアイコンの位置調整 */
@@ -435,12 +435,26 @@ footer p {
     left: 4px !important;
   }
 
-  /* インライン化したプラス・ゴミ箱ボタンが文字入力欄を圧迫しすぎないように微調整 */
+  /* 💡 【最適化】インラインの追加・ゴミ箱ボタンの余白・枠線を限界までシャープにカット */
   .btn-add-inline,
-  .btn-table-action {
+  .btn-table-action,
+  .btn-table-action.btn-delete-row {
     width: 24px !important;
     height: 24px !important;
     min-width: 24px !important;
+    padding: 0 !important;          /* 内側の余白を完全にゼロにしてサイズ縮小 */
+    margin: 0 !important;           /* 外側の余白も排除 */
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  /* 💡 アイコンフォント自体の大きさと余白も徹底的に削り、文字スペースへ還元 */
+  .btn-add-inline i,
+  .btn-table-action i {
+    font-size: 0.8rem !important;
+    padding: 0 !important;
+    margin: 0 !important;
   }
 }
 
