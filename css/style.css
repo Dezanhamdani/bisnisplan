@@ -327,7 +327,7 @@ footer p {
    6. Responsive (スマホ用設定)
    ========================================== */
 @media (max-width: 768px) {
-  /* ① ヘッダーを縦並びにして要素の衝突を防ぐ */
+  /* ① ヘッダーを縦並びにして要素の衝突を防を防ぐ */
   .common-header {
     padding: 12px 16px !important;
     height: auto !important;
@@ -435,7 +435,7 @@ footer p {
     left: 4px !important;
   }
 
-  /* 💡 【最適化】インラインの追加・ゴミ箱ボタンの余白・枠線を限界までシャープにカット */
+  /* 💡 インラインの追加・ゴミ箱ボタンの余白・枠線を限界までシャープにカット */
   .btn-add-inline,
   .btn-table-action,
   .btn-table-action.btn-delete-row {
@@ -456,8 +456,41 @@ footer p {
     padding: 0 !important;
     margin: 0 !important;
   }
-}
+  
+  /* 1. 横並びのコンテナ全体の隙間を狭くし、商品名側の親要素を限界まで引き伸ばす */
+  .row-inputs {
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+  }
+  .row-inputs > div:first-child {
+    flex: 1 !important; /* 金額欄以外の残り全ての横幅をここで使う */
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+  }
 
+  /* 2. 商品名（Nama Komoditas）の入力欄を限界まで広げる */
+  .item-name {
+    width: 100% !important;
+    flex: 1 !important;
+  }
+
+  /* 3. 金額入力欄（Rp 0）の横幅を固定してコンパクトにし、押しつぶされ防止 */
+  .row-inputs > div:nth-child(2) {
+    width: 100px !important; /* スマホでは100px固定で十分コンパクト */
+    flex-shrink: 0 !important;
+  }
+  .row-inputs > div:nth-child(2) input {
+    padding-left: 24px !important; /* Rpの文字と数字が重ならない最小余白 */
+  }
+
+  /* 4. ゴミ箱ボタンが入力欄の外側で押しつぶされるのを完全に防ぐ固定指定 */
+  .dynamic-row .btn-table-action {
+    flex-shrink: 0 !important;
+  }
+}
 /* ==========================================
    7. Action Buttons & Icons (操作系ボタンと装飾アイコン)
    ========================================== */
