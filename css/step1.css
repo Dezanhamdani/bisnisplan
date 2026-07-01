@@ -48,22 +48,22 @@
 
 /* Catatan/info box (pengganti jarak yang dulu dibuat pakai <br>) */
 .field-note {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
+  position: relative;
   background-color: #F8FAFC;
   border-left: 4px solid #CBD5E1;
-  padding: 12px 14px;
+  padding: 12px 14px 12px 34px;
   margin-bottom: 16px;
   font-size: 0.85rem;
   color: #475569;
-  line-height: 1.5;
+  line-height: 1.6;
   width: 100%;
   box-sizing: border-box;
 }
 
 .field-note i {
-  margin-top: 2px;
+  position: absolute;
+  left: 14px;
+  top: 13px;
   color: #64748B;
 }
 
