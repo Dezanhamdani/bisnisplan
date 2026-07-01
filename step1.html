@@ -1,98 +1,72 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Tahap 1 : Literasi Keuangan</title>
 
     <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/step1.css">
 
     <!-- Font Awesome -->
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
-
 <body>
 
     <!-- Header -->
     <div id="header-container"></div>
 
     <main class="main-container">
-
         <section class="sheet-section">
 
             <!-- ====================================================== -->
             <!-- Judul -->
             <!-- ====================================================== -->
-
             <div class="tab-header">
-
                 <h2>Tahap 01 : Literasi Keuangan</h2>
-
                 <p>
                     Tahap pertama merupakan proses literasi keuangan yang bertujuan
                     membantu peserta magang memahami kondisi keuangannya selama berada
                     di Jepang.
                 </p>
-
                 <p>
                     Melalui pengisian data pemasukan, pengeluaran, tabungan, dan sisa
                     masa magang, sistem akan menghitung estimasi modal bisnis yang dapat
                     dikumpulkan sebelum kembali ke Indonesia.
                 </p>
-
             </div>
 
             <!-- ====================================================== -->
             <!-- Nama Pemagang -->
             <!-- ====================================================== -->
-
             <div class="finance-block profile-block">
-
                 <div class="input-group">
-
                     <label for="name">
-
                         <i class="fa-solid fa-user"></i>
-
                         Nama Pemagang
-
                     </label>
-
                     <input
                         type="text"
                         id="name"
                         placeholder="Masukkan nama lengkap"
                         autocomplete="off"
                         required>
-
                 </div>
-
             </div>
 
             <!-- ====================================================== -->
             <!-- 1. Tabungan Saat Ini -->
             <!-- ====================================================== -->
-
             <div class="finance-block saving-block">
-
                 <h3>
-
                     <i class="fa-solid fa-piggy-bank"></i>
-
                     1. Tabungan Saat Ini
-
                 </h3>
 
                 <p class="field-desc">
@@ -105,33 +79,16 @@
                 </p>
 
                 <ul class="field-desc-list">
-
                     <li>Tabungan Bank Jepang</li>
-
                     <li>Tabungan Bank Indonesia</li>
-
                     <li>Uang Tunai</li>
-
                     <li>Dompet Digital (Opsional)</li>
-
-                </ul> <br>
+                </ul>
 
                 <div class="input-group">
-
-                    <label for="current-saving">
-
-                        Total Tabungan Saat Ini
-
-                    </label>
-
+                    <label for="current-saving">Total Tabungan Saat Ini</label>
                     <div class="row-inputs single-row">
-
-                        <span class="rp-text">
-
-                            Rp
-
-                        </span>
-
+                        <span class="rp-text">Rp</span>
                         <input
                             type="text"
                             id="current-saving"
@@ -139,21 +96,14 @@
                             inputmode="numeric"
                             autocomplete="off"
                             placeholder="Contoh: 25.000.000">
-
                     </div>
-
                 </div>
-
             </div>
 
-  
-
-                        <!-- ====================================================== -->
+            <!-- ====================================================== -->
             <!-- 2. Pemasukan Bulanan -->
             <!-- ====================================================== -->
-
             <div class="finance-block income-block dynamic-finance-group" data-group="income">
-
                 <h3>
                     <i class="fa-solid fa-wallet"></i>
                     2. Pemasukan Bulanan
@@ -176,75 +126,47 @@
                     <li>Insentif</li>
                     <li>Penjualan Produk</li>
                     <li>Pendapatan Lainnya</li>
-                </ul> <br>
+                </ul>
 
                 <div class="list-container">
-
                     <div class="input-group dynamic-row">
-
                         <div class="row-inputs">
-
                             <input
                                 type="text"
                                 class="item-name"
                                 placeholder="Contoh: Gaji Pokok"
                                 autocomplete="off">
-
-                            <span class="rp-text">
-                                Rp
-                            </span>
-
+                            <span class="rp-text">Rp</span>
                             <input
                                 type="text"
                                 class="item-amount currency-input"
                                 inputmode="numeric"
                                 autocomplete="off"
                                 placeholder="Contoh: 20.000.000">
-
                         </div>
-
                     </div>
-
                 </div>
 
                 <div class="button-row">
-
-                    <button
-                        type="button"
-                        class="btn-add">
-
+                    <button type="button" class="btn-add">
                         <i class="fa-solid fa-plus"></i>
-
                         Tambah Pemasukan
-
                     </button>
-
                 </div>
 
                 <div class="total-row">
-
                     <span>Total Pemasukan Bulanan</span>
-
-                    <span class="total-label-display">
-                        Rp 0
-                    </span>
-
+                    <span class="total-label-display">Rp 0</span>
                 </div>
-
             </div>
 
             <!-- ====================================================== -->
             <!-- 3. Biaya Hidup di Jepang -->
             <!-- ====================================================== -->
-
             <div class="finance-block expense-block dynamic-finance-group" data-group="living">
-
                 <h3>
-
                     <i class="fa-solid fa-file-invoice-dollar"></i>
-
                     3. Biaya Hidup di Jepang
-
                 </h3>
 
                 <p class="field-desc">
@@ -254,94 +176,56 @@
                 </p>
 
                 <p class="field-desc">
-
                     <strong>Contoh biaya hidup:</strong>
-
                 </p>
 
                 <ul class="field-desc-list">
-
                     <li>Makan</li>
-
                     <li>Asrama / Tempat Tinggal</li>
-
                     <li>Pajak</li>
-
                     <li>Transportasi</li>
-
                     <li>Internet / Pulsa</li>
-
                     <li>Listrik / Air / Gas</li>
-
                     <li>Hiburan</li>
-
                     <li>Kebutuhan Harian</li>
-
-                </ul> <br>
+                </ul>
 
                 <div class="list-container">
-
                     <div class="input-group dynamic-row">
-
                         <div class="row-inputs">
-
                             <input
                                 type="text"
                                 class="item-name"
                                 placeholder="Contoh: Makan"
                                 autocomplete="off">
-
-                            <span class="rp-text">
-                                Rp
-                            </span>
-
+                            <span class="rp-text">Rp</span>
                             <input
                                 type="text"
                                 class="item-amount currency-input"
                                 inputmode="numeric"
                                 autocomplete="off"
                                 placeholder="Contoh: 8.000.000">
-
                         </div>
-
                     </div>
-
                 </div>
 
                 <div class="button-row">
-
-                    <button
-                        type="button"
-                        class="btn-add">
-
+                    <button type="button" class="btn-add">
                         <i class="fa-solid fa-plus"></i>
-
                         Tambah Biaya Hidup
-
                     </button>
-
                 </div>
 
                 <div class="total-row">
-
                     <span>Total Biaya Hidup</span>
-
-                    <span class="total-label-display">
-
-                        Rp 0
-
-                    </span>
-
+                    <span class="total-label-display">Rp 0</span>
                 </div>
-
             </div>
 
-                        <!-- ====================================================== -->
+            <!-- ====================================================== -->
             <!-- 4. Kiriman Uang Keluarga -->
             <!-- ====================================================== -->
-
             <div class="finance-block remittance-block">
-
                 <h3>
                     <i class="fa-solid fa-hand-holding-dollar"></i>
                     4. Kiriman Uang Keluarga
@@ -357,21 +241,9 @@
                 </p>
 
                 <div class="input-group">
-
-                    <label for="remittance">
-
-                        Jumlah Kiriman per Bulan
-
-                    </label>
-
+                    <label for="remittance">Jumlah Kiriman per Bulan</label>
                     <div class="row-inputs single-row">
-
-                        <span class="rp-text">
-
-                            Rp
-
-                        </span>
-
+                        <span class="rp-text">Rp</span>
                         <input
                             type="text"
                             id="remittance"
@@ -379,27 +251,17 @@
                             inputmode="numeric"
                             autocomplete="off"
                             placeholder="Contoh: 2.000.000">
-
                     </div>
-
                 </div>
-
             </div>
 
             <!-- ====================================================== -->
             <!-- 5. Biaya Keinginan -->
             <!-- ====================================================== -->
-
-            <div
-                class="finance-block desire-block dynamic-finance-group"
-                data-group="desire">
-
+            <div class="finance-block desire-block dynamic-finance-group" data-group="desire">
                 <h3>
-
                     <i class="fa-solid fa-heart"></i>
-
                     5. Biaya Keinginan
-
                 </h3>
 
                 <p class="field-desc">
@@ -409,110 +271,64 @@
                 </p>
 
                 <p class="field-desc">
-
                     <strong>Contoh:</strong>
-
                 </p>
 
                 <ul class="field-desc-list">
-
                     <li>Laptop</li>
-
                     <li>Handphone</li>
-
                     <li>Kamera</li>
-
                     <li>Pulang ke Indonesia</li>
-
                     <li>Belanja Pribadi</li>
-
                     <li>Peralatan Usaha</li>
+                </ul>
 
-                </ul>  <br>
                 <div class="field-note">
-
                     <i class="fa-solid fa-circle-info"></i>
-
                     <strong>Catatan:</strong>
-
                     Biaya keinginan
                     <strong>tidak dihitung sebagai pengeluaran bulanan</strong>.
-
                     Nilai ini hanya akan dikurangi
                     <strong>satu kali</strong>
                     dari total estimasi modal bisnis Anda.
-
-                </div> <br>
+                </div>
 
                 <div class="list-container">
-
                     <div class="input-group dynamic-row">
-
                         <div class="row-inputs">
-
                             <input
                                 type="text"
                                 class="item-name"
                                 placeholder="Contoh: Laptop"
                                 autocomplete="off">
-
-                            <span class="rp-text">
-
-                                Rp
-
-                            </span>
-
+                            <span class="rp-text">Rp</span>
                             <input
                                 type="text"
                                 class="item-amount currency-input"
                                 inputmode="numeric"
                                 autocomplete="off"
                                 placeholder="Contoh: 15.000.000">
-
                         </div>
-
                     </div>
-
                 </div>
 
                 <div class="button-row">
-
-                    <button
-                        type="button"
-                        class="btn-add">
-
+                    <button type="button" class="btn-add">
                         <i class="fa-solid fa-plus"></i>
-
                         Tambah Biaya Keinginan
-
                     </button>
-
                 </div>
 
                 <div class="total-row">
-
-                    <span>
-
-                        Total Biaya Keinginan (Sekali)
-
-                    </span>
-
-                    <span class="total-label-display">
-
-                        Rp 0
-
-                    </span>
-
+                    <span>Total Biaya Keinginan (Sekali)</span>
+                    <span class="total-label-display">Rp 0</span>
                 </div>
-
             </div>
 
-                        <!-- ====================================================== -->
+            <!-- ====================================================== -->
             <!-- 6. Sisa Bulan di Jepang -->
             <!-- ====================================================== -->
-
             <div class="finance-block period-block">
-
                 <h3>
                     <i class="fa-solid fa-calendar-days"></i>
                     6. Sisa Bulan di Jepang
@@ -534,222 +350,105 @@
                     <li>18 Bulan</li>
                     <li>24 Bulan</li>
                     <li>36 Bulan</li>
-                </ul> <br>
+                </ul>
 
                 <div class="input-group">
-
-                    <label for="remaining-months">
-
-                        Jumlah Bulan Tersisa
-
-                    </label>
-
+                    <label for="remaining-months">Jumlah Bulan Tersisa</label>
                     <div class="row-inputs single-row">
-
                         <input
                             type="number"
                             id="remaining-months"
                             placeholder="Contoh: 18"
                             min="0">
-
-                        <span class="unit-text">
-
-                            Bulan
-
-                        </span>
-
+                        <span class="unit-text">Bulan</span>
                     </div>
-
                 </div>
-
             </div>
 
             <!-- ====================================================== -->
             <!-- HASIL PERHITUNGAN -->
             <!-- ====================================================== -->
-
             <div class="finance-block result-block">
-
                 <h3>
-
                     <i class="fa-solid fa-coins"></i>
-
                     Ringkasan Perhitungan Modal Bisnis
-
                 </h3>
 
                 <p class="field-desc">
-
                     Sistem akan menghitung estimasi modal bisnis berdasarkan
                     pemasukan, pengeluaran rutin, tabungan saat ini,
                     dan biaya keinginan yang hanya dihitung satu kali.
-
                 </p>
 
-                <!-- ======================= -->
                 <!-- Doughnut Chart -->
-                <!-- ======================= -->
-
                 <div class="chart-container">
-
                     <canvas id="financeChart"></canvas>
-
                 </div>
 
-                <!-- ======================= -->
                 <!-- Summary -->
-                <!-- ======================= -->
-
                 <div class="calculation-summary-box">
 
                     <div class="summary-line">
-
                         <span>(＋) Total Pemasukan Bulanan</span>
-
-                        <span id="summary-income">
-
-                            Rp 0
-
-                        </span>
-
+                        <span id="summary-income">Rp 0</span>
                     </div>
 
                     <div class="summary-line">
-
                         <span>(－) Total Biaya Hidup</span>
-
-                        <span
-                            id="summary-living"
-                            class="text-minus">
-
-                            Rp 0
-
-                        </span>
-
+                        <span id="summary-living" class="text-minus">Rp 0</span>
                     </div>
 
                     <div class="summary-line">
-
                         <span>(－) Kiriman Uang Keluarga</span>
-
-                        <span
-                            id="summary-remittance"
-                            class="text-minus">
-
-                            Rp 0
-
-                        </span>
-
+                        <span id="summary-remittance" class="text-minus">Rp 0</span>
                     </div>
 
                     <hr class="summary-divider">
 
                     <div class="summary-line font-bold">
-
                         <span>(=) Sisa Uang Bebas / Bulan</span>
-
-                        <span id="summary-monthly-free">
-
-                            Rp 0
-
-                        </span>
-
+                        <span id="summary-monthly-free">Rp 0</span>
                     </div>
 
-                    <!-- ======================= -->
                     <!-- Formula -->
-                    <!-- ======================= -->
-
                     <div class="summary-formula-desc">
-
                         <strong>Formula Perhitungan Modal Bisnis</strong>
-
                         <br><br>
-
-                        <strong>
-                            (Sisa Uang Bebas × Sisa Bulan)
-                        </strong>
-
+                        <strong>(Sisa Uang Bebas × Sisa Bulan)</strong>
                         <br>
-
                         +
-
-                        <strong>
-                            Tabungan Saat Ini
-                        </strong>
-
+                        <strong>Tabungan Saat Ini</strong>
                         <br>
-
                         −
-
-                        <strong>
-                            Total Biaya Keinginan (Sekali)
-                        </strong>
-
+                        <strong>Total Biaya Keinginan (Sekali)</strong>
                     </div>
 
                     <div class="summary-line sub-line">
-
                         <span>(×) Sisa Bulan</span>
-
-                        <span id="summary-months">
-
-                            0 Bulan
-
-                        </span>
-
+                        <span id="summary-months">0 Bulan</span>
                     </div>
 
                     <div class="summary-line sub-line">
-
                         <span>(＋) Tabungan Saat Ini</span>
-
-                        <span id="summary-current-saving">
-
-                            Rp 0
-
-                        </span>
-
+                        <span id="summary-current-saving">Rp 0</span>
                     </div>
 
                     <div class="summary-line sub-line">
-
                         <span>(－) Total Biaya Keinginan (Sekali)</span>
-
-                        <span
-                            id="summary-desire"
-                            class="text-minus">
-
-                            Rp 0
-
-                        </span>
-
+                        <span id="summary-desire" class="text-minus">Rp 0</span>
                     </div>
 
                     <hr class="summary-total-divider">
 
                     <div class="summary-line total-final-line">
-
-                        <span>
-
-                            ESTIMASI TOTAL MODAL BISNIS
-
-                        </span>
-
-                        <span id="total-modal-bisnis">
-
-                            Rp 0
-
-                        </span>
-
+                        <span>ESTIMASI TOTAL MODAL BISNIS</span>
+                        <span id="total-modal-bisnis">Rp 0</span>
                     </div>
 
                 </div>
-
             </div>
 
         </section>
-
     </main>
 
     <div id="footer-container"></div>
@@ -757,13 +456,9 @@
     <!-- =============================== -->
     <!-- JAVASCRIPT -->
     <!-- =============================== -->
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
     <script src="js/header-route.js"></script>
-
     <script src="js/step1.js"></script>
 
 </body>
